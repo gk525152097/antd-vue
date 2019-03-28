@@ -1,19 +1,50 @@
 <template>
-  <a-menu-item key="1">
-    <a-icon type="pie-chart" />
-    <span>Option 1</span>
-  </a-menu-item>
+  <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline">
+    <template v-for="item in routes">
+      <a-menu-item v-if="!item.routes" :key="item.key">
+        <a-icon type="pie-chart" />
+        <span>{{item.name}}</span>
+      </a-menu-item>
+      <sub-menu v-else :menu-info="item" :key="item.key"/>
+    </template>
+  </a-menu>
 </template>
 
 <script>
-import MenuItem from '../layout/menuItem.vue'
+import SubMenu from './SubMenu.vue'
 export default {
   name: 'menuItem',
   components: {
-    MenuItem
+    'sub-menu': SubMenu
   },
   props: {
-    routers: Array
+    routes: Array
+  },
+  data () {
+    return {
+      list: [
+        {
+          key: '1',
+          title: 'Option 1'
+        },
+        {
+          key: '2',
+          title: 'Navigation 2',
+          children: [
+            {
+              key: '2.1',
+              title: 'Navigation 3',
+              children: [
+                {
+                  key: '2.1.1',
+                  title: 'Option 2.1.1'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
   }
 }
 </script>

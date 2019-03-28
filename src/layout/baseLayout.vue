@@ -6,26 +6,7 @@
       v-model="collapsed"
     >
       <div class="logo" />
-      <a-menu theme="dark" :defaultSelectedKeys="['1']" mode="inline">
-        <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" /><span>User</span></span>
-          <a-menu-item key="1">Tom</a-menu-item>
-          <a-menu-item key="2">Bill</a-menu-item>
-          <a-sub-menu key="sub2">
-            <span slot="title"><a-icon type="user" /><span>User</span></span>
-            <a-menu-item key="3">Tom</a-menu-item>
-            <a-sub-menu key="sub3">
-              <span slot="title"><a-icon type="user" /><span>User</span></span>
-              <a-menu-item key="4">Tom</a-menu-item>
-              <a-menu-item key="5">Bill</a-menu-item>
-            </a-sub-menu>
-          </a-sub-menu>
-        </a-sub-menu>
-        <a-menu-item key="0">
-          <a-icon type="pie-chart" />
-          <span>Option 1</span>
-        </a-menu-item>
-      </a-menu>
+      <MenuItem :routes="routes"/>
     </a-layout-sider>
     <!-- 主体 -->
     <a-layout>
@@ -49,11 +30,11 @@
 </template>
 
 <script>
-// import MenuItem from '../layout/menuItem.vue'
+import MenuItem from '../layout/menuItem.vue'
 export default {
   name: 'baseLayout',
   components: {
-    // MenuItem
+    MenuItem
   },
   data () {
     return {
