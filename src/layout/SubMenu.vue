@@ -5,13 +5,15 @@
     <span slot="title">
       <a-icon type="mail" /><span>{{ props.menuInfo.name }}</span>
     </span>
-    <template v-for="item in props.menuInfo.routes">
+    <template v-for="item in props.menuInfo.children">
       <a-menu-item
-        v-if="!item.routes"
+        v-if="!item.children"
         :key="item.key"
       >
-        <a-icon type="pie-chart" />
-        <span>{{ item.name }}</span>
+        <router-link :to="item.path">
+          <a-icon type="pie-chart" />
+          <span>{{ item.name }}</span>
+        </router-link>
       </a-menu-item>
       <sub-menu
         v-else
