@@ -1,70 +1,30 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import baseLayout from '../view/layout/baseLayout' // BaseLayout
 // import HelloWorld from '@/components/HelloWorld'
 
 Vue.use(Router)
 
+export const constantRoutes = [
+  { path: '/login', component: () => import('@/view/login/index'), hidden: true },
+  { path: '/404', component: () => import('@/view/404'), hidden: true },
+
+  {
+    path: '/',
+    component: baseLayout,
+    redirect: '/dashboard',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      icon: 'dashboard',
+      component: () => import('@/view/dashboard/index')
+    }]
+  },
+
+  { path: '*', redirect: '/404', hidden: true }
+]
+
 export default new Router({
-  routes: [
-    {
-      key: '1',
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: () => import('@/layout/baseRouter'), // 需要用一个空路由做基础以提供子路由出口
-      children: [
-        {
-          key: '1.1',
-          path: '/HelloWorld/HelloWorld1',
-          name: 'HelloWorld1',
-          component: () => import('@/components/HelloWorld')
-        }
-      ]
-    },
-    {
-      key: '2',
-      path: '/test',
-      name: 'UserManage',
-      component: () => import('@/layout/baseRouter'),
-      children: [
-        {
-          key: '2.1',
-          path: '/User/user',
-          name: 'User',
-          component: () => import('@/components/User')
-        },
-        {
-          key: '2.2',
-          path: '/test2',
-          name: 'test2',
-          component: () => import('@/layout/baseRouter'),
-          children: [
-            {
-              key: '2.2.1',
-              path: '/test3',
-              name: 'test4',
-              component: () => import('@/components/HelloWorld')
-            },
-            {
-              key: '2.2.2',
-              path: '/test1',
-              name: 'test1',
-              component: () => import('@/components/HelloWorld')
-            }
-          ]
-        }
-      ]
-    },
-    {
-      key: '3',
-      path: '/home',
-      name: 'Home',
-      component: () => import('@/components/Home')
-    },
-    {
-      key: '4',
-      path: '/home/test',
-      name: 'Home',
-      component: () => import('@/components/HelloWorld')
-    }
-  ]
+  mode: 'history',
+  routes: constantRoutes
 })

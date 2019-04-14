@@ -1,10 +1,10 @@
 <template>
-  <div>USER</div>
+    <div>hello antd-vue form gk</div>
 </template>
 
 <script>
 export default {
-  name: 'User'
+  name: 'index'
 }
 </script>
 

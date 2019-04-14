@@ -6,7 +6,8 @@
       v-model="collapsed"
     >
       <div class="logo" />
-      <MenuItem :routes="routes"/>
+      <!-- 菜单项 -->
+      <MenuBar />
     </a-layout-sider>
     <!-- 主体 -->
     <a-layout>
@@ -14,10 +15,12 @@
       <a-layout-header style="background: #fff; padding: 0" />
       <!-- 主体 -->
       <a-layout-content style="margin: 0 16px">
+        <!-- TagsView -->
         <a-breadcrumb style="margin: 16px 0">
           <a-breadcrumb-item>User</a-breadcrumb-item>
           <a-breadcrumb-item>Bill</a-breadcrumb-item>
         </a-breadcrumb>
+        <!-- 页面 -->
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
           <slot></slot>
         </div>
@@ -30,11 +33,13 @@
 </template>
 
 <script>
-import MenuItem from '../layout/menuItem.vue'
+import MenuBar from './components/menuBar.vue'
+import MainPage from './components/mainPage.vue'
 export default {
   name: 'baseLayout',
   components: {
-    MenuItem
+    MenuBar,
+    MainPage
   },
   data () {
     return {

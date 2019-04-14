@@ -1,11 +1,12 @@
-<template functional>
+<template>
   <a-sub-menu
-    :key="props.menuInfo.key"
+    :key="menuInfo.key"
+    v-if="!menuInfo.hidden"
   >
     <span slot="title">
-      <a-icon type="mail" /><span>{{ props.menuInfo.name }}</span>
+      <a-icon type="mail" /><span>{{ menuInfo.name }}</span>
     </span>
-    <template v-for="item in props.menuInfo.children">
+    <template v-for="item in menuInfo.children">
       <a-menu-item
         v-if="!item.children"
         :key="item.key"
@@ -23,8 +24,19 @@
     </template>
   </a-sub-menu>
 </template>
+
 <script>
 export default {
-  props: ['menuInfo']
+  name: 'subMenu',
+  props: {
+    menuInfo: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
+
+<style scoped>
+
+</style>

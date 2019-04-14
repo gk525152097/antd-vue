@@ -27,6 +27,28 @@ store
   |-modulesItem
 |-getter
 |-index
+
+# 全局数据原
+```
+
+> permisstion文件
+``` bash
+路由控制
+```
+
+> NProgress
+``` bash
+页面切换进度
+
+# 引入
+import NProgress from 'nprogress'
+
+# 配置
+NProgress.configure({ showSpinner: false })
+
+# 使用
+NProgress.start() // 开始
+NProgress.done() // 结束
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
