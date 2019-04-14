@@ -14,8 +14,21 @@ const tokens = {
 }
 
 const roleMenu = {
-  admin: "{path: '/',component: baseLayout,redirect: '/dashboard',children: [{path: 'dashboard',name: 'Dashboard',icon: 'dashboard',component: () => import('@/view/dashboard/index') }]}",
-  user: "{path: '/',component: baseLayout,redirect: '/dashboard',children: [{path: 'dashboard',name: 'Dashboard',icon: 'dashboard',component: () => import('@/view/dashboard/index') }]}"
+  admin: [
+    {
+      path: '/',
+      name: '首页',
+      icon: 'dashboard',
+      component: () => import('@/view/layout/baseLayout'),
+      redirect: '/dashboard',
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/view/dashboard/index')
+      }]
+    }
+  ],
+  user: "[{path: '/',component: baseLayout,redirect: '/dashboard',children: [{path: 'dashboard',name: 'Dashboard',icon: 'dashboard',component: () => import('@/view/dashboard/index') }]}]"
 }
 
 export default {

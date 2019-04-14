@@ -72,16 +72,20 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           this.$store.dispatch('Login', values)
-            .then(res => {
-              console.log(res)
+            .then(Login => {
+              console.log(Login)
               // 拉取角色菜单
-              this.$store.dispatch('GetMenu', {role: res.data.role})
-                .then(res => {
+              this.$store.dispatch('GetMenu', {role: Login.data.role})
+                .then(GetMenu => {
                   // todo 替换菜单
                   // 问题 基本菜单未实现
-                  console.log(res.data)
+                  console.log(GetMenu.data)
+                  this.$router.addRoutes(GetMenu.data[0])
+                  this.$router.addRoutes([{ path: '*', redirect: '/404', hidden: true }])
+                  this.$router.options.routes.push(GetMenu.data)
+                  console.log(this.$router)
                   // 存储权限
-                  localStorage.setItem('role', res.data.role)
+                  localStorage.setItem('role', Login.data.role)
                   // 跳转
                   this.$router.push({path: '/'})
                 })

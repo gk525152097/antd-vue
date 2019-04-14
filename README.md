@@ -51,4 +51,17 @@ NProgress.start() // 开始
 NProgress.done() // 结束
 ```
 
+> MOCK
+``` bash
+模拟数据
+
+文件结构
+|-mock
+  |-index
+  |-user
+
+index为mock主文件
+user为对应模块数据源
+```
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
