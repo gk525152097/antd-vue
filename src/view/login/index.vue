@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import service from '@/utils/request'
+import { message } from 'ant-design-vue'
 function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field])
 }
@@ -46,6 +46,9 @@ export default {
         }
       }
     }
+  },
+  beforeCreate () {
+    this.form = this.$form.createForm(this)
   },
   mounted () {
     this.$nextTick(() => {
@@ -68,14 +71,26 @@ export default {
       e.preventDefault()
       this.form.validateFields((err, values) => {
         if (!err) {
-          service.post('/user', {
-            ...values
-          })
-            .then(function (response) {
-              console.log(response)
+          this.$store.dispatch('Login', values)
+            .then(res => {
+              console.log(res)
+              // 拉取角色菜单
+              this.$store.dispatch('GetMenu', {role: res.data.role})
+                .then(res => {
+                  // todo 替换菜单
+                  // 问题 基本菜单未实现
+                  console.log(res.data)
+                  // 存储权限
+                  localStorage.setItem('role', res.data.role)
+                  // 跳转
+                  this.$router.push({path: '/'})
+                })
+                .catch((err) => {
+                  message.error(`网络请求失败:${err}`)
+                })
             })
-            .catch(function (error) {
-              console.log(error)
+            .catch((err) => {
+              message.error(`网络请求失败:${err}`)
             })
         }
       })

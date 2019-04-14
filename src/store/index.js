@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import tagsview from './modules/tagsview.js'
+import tagsView from './modules/tagsview.js'
+import user from './modules/user.js'
 import getters from './getter.js'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
-    tagsview
+    tagsView,
+    user
   },
   getters
 })

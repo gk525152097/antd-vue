@@ -6,17 +6,18 @@ import baseLayout from '../view/layout/baseLayout' // BaseLayout
 Vue.use(Router)
 
 export const constantRoutes = [
-  { path: '/login', component: () => import('@/view/login/index'), hidden: true },
-  { path: '/404', component: () => import('@/view/404'), hidden: true },
+  { path: '/login', name: 'login', component: () => import('@/view/login/index'), hidden: true },
+  { path: '/404', name: '404', component: () => import('@/view/404'), hidden: true },
 
   {
     path: '/',
+    name: '首页',
+    icon: 'dashboard',
     component: baseLayout,
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
-      icon: 'dashboard',
       component: () => import('@/view/dashboard/index')
     }]
   },

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '../router'
 import { notification, message } from 'ant-design-vue'
 import store from '../store'
 // import { getToken } from '@/utils/auth'
@@ -36,10 +37,10 @@ service.interceptors.response.use(
 
       // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
-        const key = `open${Date.now()}`
+        // const key = `open${Date.now()}`
         notification.error({
           message: `异常: ${res.code}`,
-          description: errortext,
+          description: res.message
         })
       }
       return Promise.reject('error') // eslint-disable-line
@@ -49,14 +50,16 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
+    console.log(this)
+    console.log(router)
     switch (error.response.status) {
       case 401:
         break
       case 404:
-        this.router.push({name: '404'})
+        router.push({path: '/404'})
         break
       case 500:
-        this.router.push({name: '500'})
+        router.push({path: '/404'})
         break
     }
     return Promise.reject(error)

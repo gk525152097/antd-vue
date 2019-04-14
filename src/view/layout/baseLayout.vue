@@ -22,7 +22,7 @@
         </a-breadcrumb>
         <!-- 页面 -->
         <div :style="{ padding: '24px', background: '#fff', minHeight: '360px' }">
-          <slot></slot>
+          <MainPage />
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
