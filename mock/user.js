@@ -19,12 +19,12 @@ const roleMenu = {
       path: '/',
       name: '首页',
       icon: 'dashboard',
-      component: () => import('@/view/layout/baseLayout'),
+      component: 'baseLayout',
       redirect: '/dashboard',
       children: [{
         path: 'dashboard',
         name: 'Dashboard',
-        component: () => import('@/view/dashboard/index')
+        component: 'dashboard/index'
       }]
     }
   ],

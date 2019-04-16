@@ -2,14 +2,14 @@
   <div class="login-bg">
     <div class="login-box">
       <a-form :form="form" @submit="handleSubmit">
-        <a-tabs defaultActiveKey="1" style="text-align: center" >
+        <a-tabs defaultActiveKey="1" style="text-align: center"  >
           <a-tab-pane tab="用户名密码登录" key="1">
             <a-form-item
               :validate-status="userNameError() ? 'error' : ''"
               :help="userNameError() || ''"
             >
               <a-input
-                v-decorator="[ 'userName',  {rules: [{ required: true, message: 'Please input your username!' }]} ]"
+                v-decorator="[ 'userName',  {rules: [{ required: this.formRequired === 'account', message: 'Please input your username!' }]} ]"
                 placeholder="用户名"
               >
                 <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
@@ -20,7 +20,7 @@
               :help="passwordError() || ''"
             >
               <a-input
-                v-decorator="[  'password',  {rules: [{ required: true, message: 'Please input your Password!' }]} ]"
+                v-decorator="[  'password',  {rules: [{ required: this.formRequired === 'account', message: 'Please input your Password!' }]} ]"
                 type="password" placeholder="密码"
               >
                 <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
@@ -33,7 +33,7 @@
               :help="userNameError() || ''"
             >
               <a-input
-                v-decorator="[ 'phoneNumber',  {rules: [{ required: true, message: 'Please input your username!' }]} ]"
+                v-decorator="[ 'phoneNumber',  {rules: [{ required: this.formRequired !== 'account', message: 'Please input your username!' }]} ]"
                 placeholder="手机号码"
               >
                 <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
@@ -45,7 +45,7 @@
             >
               <a-input
                 v-bind:style="{width: '60%'}"
-                v-decorator="[ 'code',  {rules: [{ required: true, message: 'Please input your username!' }]} ]"
+                v-decorator="[ 'code',  {rules: [{ required: this.formRequired !== 'account', message: 'Please input your username!' }]} ]"
                 placeholder="验证码"
               >
                 <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
@@ -78,16 +78,36 @@
 </template>
 
 <script>
+import router from '../../router'
 import { message } from 'ant-design-vue'
+import baseLayout from '@/view/layout/baseLayout'
 function hasErrors (fieldsError) {
   return Object.keys(fieldsError).some(field => fieldsError[field])
+}
+
+function buildRoutes (menuList) {
+  menuList = menuList.map(menu => {
+    if (menu.children) {
+      menu.children = buildRoutes(menu.children)
+    }
+    if (menu.component.length === 0) {
+      delete menu.component
+    } else if (menu.component === 'baseLayout') {
+      menu.component = baseLayout
+    } else {
+      menu.component = import('@/views' + menu.component)
+    }
+    return menu
+  })
+  return menuList
 }
 export default {
   name: 'index',
   data () {
     return {
+      formRequired: 'account',
       hasErrors,
-      form: this.$form.createForm(this),
+      form: this.$form.createForm(this)
     }
   },
   beforeCreate () {
@@ -123,10 +143,8 @@ export default {
                   // todo 替换菜单
                   // 问题 基本菜单未实现
                   console.log(GetMenu.data)
-                  this.$router.addRoutes(GetMenu.data[0])
-                  this.$router.addRoutes([{ path: '*', redirect: '/404', hidden: true }])
-                  this.$router.options.routes.push(GetMenu.data)
-                  console.log(this.$router)
+                  router.addRoutes(buildRoutes(GetMenu.data))
+                  console.log(router)
                   // 存储权限
                   localStorage.setItem('role', Login.data.role)
                   // 跳转
