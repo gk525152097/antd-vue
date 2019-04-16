@@ -26,7 +26,7 @@
         </div>
       </a-layout-content>
       <a-layout-footer style="text-align: center">
-        Antd-vue ©2019 - {{new Date().toLocaleString().slice(0, 4)}} Created by GK黎光
+        <Footer />
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -35,11 +35,13 @@
 <script>
 import MenuBar from './components/menuBar.vue'
 import MainPage from './components/mainPage.vue'
+import Footer from './footer.vue'
 export default {
   name: 'baseLayout',
   components: {
     MenuBar,
-    MainPage
+    MainPage,
+    Footer
   },
   data () {
     return {
