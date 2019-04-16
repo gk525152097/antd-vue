@@ -24,7 +24,7 @@ const roleMenu = {
       children: [{
         path: 'dashboard',
         name: 'Dashboard',
-        component: 'dashboard/index'
+        component: '/dashboard/index'
       }]
     }
   ],

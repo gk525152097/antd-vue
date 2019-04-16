@@ -78,7 +78,6 @@
 </template>
 
 <script>
-import router from '../../router'
 import { message } from 'ant-design-vue'
 import baseLayout from '@/view/layout/baseLayout'
 function hasErrors (fieldsError) {
@@ -95,7 +94,7 @@ function buildRoutes (menuList) {
     } else if (menu.component === 'baseLayout') {
       menu.component = baseLayout
     } else {
-      menu.component = import('@/views' + menu.component)
+      menu.component = (_ => () => import('@/view' + _))(menu.component)
     }
     return menu
   })
@@ -140,11 +139,11 @@ export default {
               // 拉取角色菜单
               this.$store.dispatch('GetMenu', {role: Login.data.role})
                 .then(GetMenu => {
-                  // todo 替换菜单
-                  // 问题 基本菜单未实现
-                  console.log(GetMenu.data)
-                  router.addRoutes(buildRoutes(GetMenu.data))
-                  console.log(router)
+                  // 动态添加路由
+                  this.$router.addRoutes(buildRoutes(GetMenu.data))
+                  // todo 需要做动态的菜单 因为路由更新 但是菜单没更新
+                  // 所以需要使用store来存一个动态的菜单 并在菜单组件中使用
+                  // 当store里菜单属性修改时 菜单组件能够动态修改
                   // 存储权限
                   localStorage.setItem('role', Login.data.role)
                   // 跳转
