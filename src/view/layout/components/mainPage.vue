@@ -1,9 +1,12 @@
 <template>
-  <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
-      <router-view/>
-    </transition>
-  </section>
+  <!--<section class="app-main">-->
+    <!--<transition name="fade-transform" mode="out-in">-->
+      <!--<router-view/>-->
+    <!--</transition>-->
+  <!--</section>-->
+  <transition name="fade-transform" mode="out-in">
+    <router-view/>
+  </transition>
 </template>
 
 <script>

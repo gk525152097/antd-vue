@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Footer from './footer.vue'
+import Footer from './footer'
 export default {
   name: 'userLayout',
   components: {

@@ -13,6 +13,7 @@ router.beforeEach((to, from, next) => {
       NProgress.done()
     } else {
       next()
+      NProgress.done()
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {

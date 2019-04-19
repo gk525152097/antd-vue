@@ -2,7 +2,7 @@
   <div class="login-bg">
     <div class="login-box">
       <a-form :form="form" @submit="handleSubmit">
-        <a-tabs defaultActiveKey="1" v-bind:tabBarStyle="{'text-align': 'center'}"  >
+        <a-tabs defaultActiveKey="1" :tabBarStyle="{'text-align': 'center'}"  >
           <a-tab-pane tab="用户名密码登录" key="1">
             <a-form-item>
               <a-input
@@ -106,6 +106,10 @@ export default {
               this.$store.dispatch('GetMenu', {role: Login.data.role})
                 .then(GetMenu => {
                   // 动态添加路由
+                  // todo 动态路由添加方式有问题 原因 因为在F5刷新后 路由对象重新刷新 导致路由功能失效 所有页面都变成空白页
+                  // 所以需要将 添加 动态路由的方式移动到 路由守卫上
+                  // 在每次路由跳转时获取 信息 判断是否存在路由
+                  // 再 动态添加路由
                   this.$router.addRoutes(buildRoutes(GetMenu.data))
                   // todo 需要做动态的菜单 因为路由更新 但是菜单没更新
                   // 所以需要使用store来存一个动态的菜单 并在菜单组件中使用
