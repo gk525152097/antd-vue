@@ -5,8 +5,8 @@ const tokens = {
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Super Admin'
   },
-  editor: {
-    role: 'editor',
+  user: {
+    role: 'user',
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
@@ -28,7 +28,20 @@ const roleMenu = {
       }]
     }
   ],
-  user: "[{path: '/',component: baseLayout,redirect: '/dashboard',children: [{path: 'dashboard',name: 'Dashboard',icon: 'dashboard',component: () => import('@/view/dashboard/index') }]}]"
+  user: [
+    {
+      path: '/',
+      name: 'user',
+      icon: 'dashboard',
+      component: 'baseLayout',
+      redirect: '/dashboard',
+      children: [{
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: '/dashboard/index'
+      }]
+    }
+  ]
 }
 
 export default {

@@ -65,24 +65,6 @@
 
 <script>
 import { message } from 'ant-design-vue'
-import baseLayout from '@/view/layout/baseLayout'
-
-function buildRoutes (menuList) {
-  menuList = menuList.map(menu => {
-    if (menu.children) {
-      menu.children = buildRoutes(menu.children)
-    }
-    if (menu.component.length === 0) {
-      delete menu.component
-    } else if (menu.component === 'baseLayout') {
-      menu.component = baseLayout
-    } else {
-      menu.component = (_ => () => import('@/view' + _))(menu.component)
-    }
-    return menu
-  })
-  return menuList
-}
 export default {
   name: 'index',
   data () {
@@ -101,27 +83,8 @@ export default {
         if (!err) {
           this.$store.dispatch('Login', values)
             .then(Login => {
-              console.log(Login)
-              // 拉取角色菜单
-              this.$store.dispatch('GetMenu', {role: Login.data.role})
-                .then(GetMenu => {
-                  // 动态添加路由
-                  // todo 动态路由添加方式有问题 原因 因为在F5刷新后 路由对象重新刷新 导致路由功能失效 所有页面都变成空白页
-                  // 所以需要将 添加 动态路由的方式移动到 路由守卫上
-                  // 在每次路由跳转时获取 信息 判断是否存在路由
-                  // 再 动态添加路由
-                  this.$router.addRoutes(buildRoutes(GetMenu.data))
-                  // todo 需要做动态的菜单 因为路由更新 但是菜单没更新
-                  // 所以需要使用store来存一个动态的菜单 并在菜单组件中使用
-                  // 当store里菜单属性修改时 菜单组件能够动态修改
-                  // 存储权限
-                  localStorage.setItem('role', Login.data.role)
-                  // 跳转
-                  this.$router.push({path: '/'})
-                })
-                .catch((err) => {
-                  message.error(`网络请求失败:${err}`)
-                })
+              localStorage.setItem('user', JSON.stringify(Login))
+              this.$router.push({path: '/'})
             })
             .catch((err) => {
               message.error(`网络请求失败:${err}`)

@@ -1,4 +1,5 @@
 import router from './router'
+import store from './store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
@@ -7,12 +8,21 @@ NProgress.configure({ showSpinner: false }) // NProgress configuration
 const whiteList = ['/user/login', '/user/register'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (localStorage.getItem('role')) {
+  if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).role) {
     if (to.path === '/user/login' || to.path === '/user/register') {
       next({ path: '/' })
       NProgress.done()
     } else {
-      next()
+      console.log(store.getters.routes)
+      if (store.getters.routes.length) {
+        next()
+      } else {
+        store.dispatch('GetMenu', {role: JSON.parse(localStorage.getItem('user')).role})
+          .then(GetMenu => {
+            router.addRoutes(GetMenu)
+            next({ ...to, replace: true })
+          })
+      }
       NProgress.done()
     }
   } else {

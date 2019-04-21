@@ -26,7 +26,8 @@ export default {
   name: 'headerMenu',
   methods: {
     logout () {
-      localStorage.removeItem('role')
+      localStorage.removeItem('user')
+      this.$store.dispatch('ResetMenu', [])
       this.$router.push({name: 'login'})
     }
   }

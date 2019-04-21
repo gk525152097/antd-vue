@@ -33,7 +33,11 @@ store
 
 > permisstion文件
 ``` bash
-路由控制
+路由守卫
+作为动态路由的关键
+由于动态创建的路由会因为 浏览器刷新而重置
+包括store 也会被重置
+故 需要在路由守卫里 重新渲染 路由
 ```
 
 > NProgress
@@ -62,6 +66,13 @@ NProgress.done() // 结束
 
 index为mock主文件
 user为对应模块数据源
+```
+
+> vue-cookie
+> 备注 未接入 占定为cookie技术
+``` bash
+VueCookie
+封装好的cookie插件 更方便cookie的使用
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
