@@ -63,7 +63,7 @@ NProgress.done() // 结束
 ``` bash
 模拟数据
 
-文件结构
+#文件结构
 |-mock
   |-index
   |-user
@@ -73,9 +73,10 @@ user为对应模块数据源
 ```
 
 > vue-cookie
-> 备注 未接入 占定为cookie技术
 ``` bash
-VueCookie
+#备注 未接入 占定为cookie技术
+
+#VueCookie
 封装好的cookie插件 更方便cookie的使用
 ```
 

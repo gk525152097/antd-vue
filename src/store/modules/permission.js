@@ -1,29 +1,6 @@
 import { getMenu } from '@/api/user'
 import { constantRoutes } from '@/router'
-import baseLayout from '@/view/layout/baseLayout'
-
-const buildRoutes = (menuList) => {
-  menuList = menuList.map(menu => {
-    if (menu.children) {
-      menu.children = buildRoutes(menu.children)
-    }
-    if (menu.component.length === 0) {
-      delete menu.component
-    } else if (menu.component === 'baseLayout') {
-      menu.component = baseLayout
-    } else {
-      menu.component = (_ => () => import('@/view' + _))(menu.component)
-    }
-    return menu
-  })
-  return menuList
-}
-
-const add404Routes = (menuList) => {
-  const route = buildRoutes(menuList)
-  route.push({ path: '*', redirect: '/404', hidden: true })
-  return route
-}
+import createRoutes from '@/utils/createRoutes'
 
 const user = {
   state: {
@@ -43,7 +20,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getMenu(role).then(res => {
           commit('SET_ROUTES', res.data)
-          resolve(add404Routes(res.data))
+          resolve(createRoutes(res.data))
         }).catch(error => {
           reject(error)
         })
