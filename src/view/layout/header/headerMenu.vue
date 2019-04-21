@@ -1,7 +1,7 @@
 <template>
   <a-dropdown :placement="'bottomCenter'">
     <a class="ant-dropdown-link" href="#">
-      <a-avatar size="small" icon="user" class="user-avatar" /> admin
+      <a-avatar size="small" v-bind:src="userAvatar" class="user-avatar"/> {{userName}}
     </a>
     <a-menu slot="overlay" class="dropdown-contant">
       <a-menu-item>
@@ -24,10 +24,16 @@
 <script>
 export default {
   name: 'headerMenu',
+  data () {
+    return {
+      userAvatar: JSON.parse(localStorage.getItem('user')).avatar,
+      userName: JSON.parse(localStorage.getItem('user')).name
+    }
+  },
   methods: {
     logout () {
       localStorage.removeItem('user')
-      this.$store.dispatch('ResetMenu', [])
+      location.reload() // 登出后重置store 和 路由
       this.$router.push({name: 'login'})
     }
   }

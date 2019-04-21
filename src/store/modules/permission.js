@@ -35,10 +35,6 @@ const user = {
     SET_ROUTES: (state, routes) => {
       state.addRoutes = routes
       state.routes = constantRoutes.concat(routes)
-    },
-    RESET_ROUTES: (state, routes) => {
-      state.addRoutes = routes
-      state.routes = routes
     }
   },
 
@@ -52,9 +48,6 @@ const user = {
           reject(error)
         })
       })
-    },
-    ResetMenu ({ commit }, routes) {
-      commit('RESET_ROUTES', routes)
     }
   }
 }

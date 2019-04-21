@@ -3,7 +3,7 @@
     <template v-for="item in routes">
       <a-menu-item v-if="!item.children && !item.hidden" :key="item.path">
         <router-link :to="item.path">
-          <a-icon :type="item.icon" />
+          <a-icon :type="item.icon" v-if="item.icon"/>
           <span>{{item.name}}</span>
         </router-link>
       </a-menu-item>

@@ -6,15 +6,17 @@
     v-if="!menuInfo.hidden"
   >
     <span slot="title">
-      <a-icon type="mail" /><span>{{ menuInfo.name }}</span>
+      <a-icon :type="menuInfo.icon" v-if="menuInfo.icon"/><span>{{ menuInfo.name }}</span>
     </span>
     <template v-for="item in menuInfo.children">
       <a-menu-item
         v-if="!item.children && !item.hidden"
         :key="item.path"
       >
-        <a-icon type="pie-chart" />
-        <span>{{ item.name }}</span>
+        <router-link :to="item.path">
+          <a-icon :type="item.icon" v-if="item.icon" />
+          <span>{{ item.name }}</span>
+        </router-link>
       </a-menu-item>
       <sub-menu
         v-else

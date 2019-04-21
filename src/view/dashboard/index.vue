@@ -15,13 +15,16 @@
         <a-tab-pane tab="访问量" key="2">Content of Tab 2</a-tab-pane>
       </a-tabs>
     </div>
+    <router-link to="analysis">analysis</router-link>
+    <router-link to="dashboard">dashboard</router-link>
   </div>
 </template>
 
 <script type="text/jsx">
 export default {
   name: 'index',
-  methods: {}
+  methods: {},
+  // todo 首页模块仿制
 }
 </script>
 

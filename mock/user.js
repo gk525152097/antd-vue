@@ -7,9 +7,9 @@ const tokens = {
   },
   user: {
     role: 'user',
-    introduction: 'I am an editor',
+    introduction: 'I am an user',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    name: 'Normal User'
   }
 }
 
@@ -21,11 +21,19 @@ const roleMenu = {
       icon: 'dashboard',
       component: 'baseLayout',
       redirect: '/dashboard',
-      children: [{
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: '/dashboard/index'
-      }]
+      children: [
+        {
+          path: 'dashboard',
+          name: 'Dashboard',
+          icon: 'dashboard',
+          component: '/dashboard/index'
+        },
+        {
+          path: 'analysis',
+          name: 'analysis',
+          component: '/analysis/index'
+        }
+      ]
     }
   ],
   user: [
