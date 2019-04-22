@@ -17,7 +17,6 @@ export default {
       zh_CN
     }
   }
-// todo 将全局提示作为方法进行调用 方便以后更换UI
 // todo 请求拦截器的修改
 }
 </script>

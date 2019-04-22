@@ -1,17 +1,61 @@
+<!--suppress ALL -->
 <template>
   <div class="dashboard">
     <div class="header-card">
-      <div class="header-card-item">
-        <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
-          <template slot="echarts" >
-            <i-echarts
-              :option="barSmall"
-              @click="onClick"
-              ref="barSmall"
-            />
-          </template>
-        </header-card>
-      </div>
+      <a-row :gutter="12">
+        <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+          <div class="header-card-item">
+            <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
+              <template slot="echarts" >
+                <i-echarts
+                  :option="barSmall"
+                  @click="onClick"
+                  ref="barSmall1"
+                />
+              </template>
+            </header-card>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+          <div class="header-card-item">
+            <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
+              <template slot="echarts" >
+                <i-echarts
+                  :option="barSmall"
+                  @click="onClick"
+                  ref="barSmall2"
+                />
+              </template>
+            </header-card>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+          <div class="header-card-item">
+            <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
+              <template slot="echarts" >
+                <i-echarts
+                  :option="barSmall"
+                  @click="onClick"
+                  ref="barSmall3"
+                />
+              </template>
+            </header-card>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+          <div class="header-card-item">
+            <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
+              <template slot="echarts" >
+                <i-echarts
+                  :option="barSmall"
+                  @click="onClick"
+                  ref="barSmall4"
+                />
+              </template>
+            </header-card>
+          </div>
+        </a-col>
+      </a-row>
     </div>
     <div class="statistics">
       <a-tabs defaultActiveKey="1">
@@ -93,11 +137,17 @@ export default {
   mounted () {
     window.onresize = () => {
       this.$refs.test.resize()
-      this.$refs.barSmall.resize()
+      this.$refs.barSmall1.resize()
+      this.$refs.barSmall2.resize()
+      this.$refs.barSmall3.resize()
+      this.$refs.barSmall4.resize()
     }
     setTimeout(() => {
       this.$refs.test.resize()
-      this.$refs.barSmall.resize()
+      this.$refs.barSmall1.resize()
+      this.$refs.barSmall2.resize()
+      this.$refs.barSmall3.resize()
+      this.$refs.barSmall4.resize()
     }, 10)
   },
   data: () => ({
@@ -189,21 +239,8 @@ export default {
 <style lang="scss" scoped>
 .dashboard {
   .header-card{
-    margin: 0 0 24px 0;
-    @media screen and (min-width:1366px){
-      .header-card-item {
-        width: 25%;
-      }
-    }
-    @media screen and (min-width:1080px) and (max-width:1366px) {
-      .header-card-item {
-        width: 50%;
-      }
-    }
-    @media screen and (max-width:1080px){
-      .header-card-item {
-        width: 100%;
-      }
+    .header-card-item {
+      margin: 0 0 12px 0;
     }
   }
   .statistics {

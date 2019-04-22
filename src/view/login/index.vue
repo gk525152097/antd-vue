@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import Message from '@/utils/message'
+import Message from '../../utils/message'
 export default {
   name: 'index',
   data () {

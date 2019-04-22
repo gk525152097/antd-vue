@@ -1,6 +1,16 @@
 <template>
   <div class="header-card-components">
-    <h3>{{Title}}</h3>
+    <h3>
+      {{Title}}
+      <span class="icon">
+        <a-tooltip>
+          <template slot='title'>
+            使用说明
+          </template>
+          <a-icon type="question-circle" />
+        </a-tooltip>
+      </span>
+    </h3>
     <h1>{{BodyData}}</h1>
     <div class="echarts">
       <slot name="echarts"></slot>
@@ -29,6 +39,9 @@ export default {
     color: rgba(0,0,0,.45);
     font-size: 14px;
     line-height: 22px;
+    .icon {
+      float: right;
+    }
   }
   h1 {
     height: 38px;

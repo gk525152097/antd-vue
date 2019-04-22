@@ -25,4 +25,4 @@ const Message = (obj) => {
   }
 }
 
-export default Message()
+export default Message
