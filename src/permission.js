@@ -13,7 +13,6 @@ router.beforeEach((to, from, next) => {
       next({ path: '/' })
       NProgress.done()
     } else {
-      console.log(store.getters.routes)
       if (store.getters.routes.length) {
         next()
       } else {
