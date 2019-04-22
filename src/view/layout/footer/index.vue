@@ -1,11 +1,11 @@
 <template>
   <div class="footer">
     <div class="link">
-      <router-link to='login'>首页</router-link>
-      <a-divider type="vertical" />
-      <a href="https://github.com/gk525152097/antd-vue.git" target="_blank"><a-icon type="github" /></a>
+      <a href="https://preview.pro.ant.design/dashboard/analysis">AntDesignPro</a>
       <a-divider type="vertical" />
       <a href="https://vue.ant.design/"  target="_blank">AntDesignVue</a>
+      <a-divider type="vertical" />
+      <a href="https://github.com/gk525152097/antd-vue.git" target="_blank"><a-icon type="github" /></a>
     </div>
     Antd-vue ©2019 - {{new Date().toLocaleString().slice(0, 4)}} Created by GK黎光
   </div>

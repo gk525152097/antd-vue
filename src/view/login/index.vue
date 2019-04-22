@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { message } from 'ant-design-vue'
+import Message from '@/utils/message'
 export default {
   name: 'index',
   data () {
@@ -87,7 +87,10 @@ export default {
               this.$router.push({path: '/'})
             })
             .catch((err) => {
-              message.error(`网络请求失败:${err}`)
+              Message({
+                type: 'error',
+                message: `网络请求失败:${err}`
+              })
             })
         }
       })

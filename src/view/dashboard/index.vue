@@ -1,5 +1,18 @@
 <template>
-  <div>
+  <div class="dashboard">
+    <div class="header-card">
+      <div class="header-card-item">
+        <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
+          <template slot="echarts" >
+            <i-echarts
+              :option="barSmall"
+              @click="onClick"
+              ref="barSmall"
+            />
+          </template>
+        </header-card>
+      </div>
+    </div>
     <div class="statistics">
       <a-tabs defaultActiveKey="1">
         <template slot="tabBarExtraContent" >
@@ -15,7 +28,7 @@
           <div class="tabs-item">
             <div class="echarts-bar tabs-items">
               <h1>销售趋势</h1>
-              <IEcharts
+              <i-echarts
                 :option="bar"
                 @click="onClick"
                 ref="test"
@@ -37,7 +50,7 @@
           <div class="tabs-item">
             <div class="echarts-bar tabs-items">
               <h1>访问趋势</h1>
-              <IEcharts
+              <i-echarts
                 :option="bar"
                 @click="onClick"
                 ref="test"
@@ -62,6 +75,7 @@
 
 <script type="text/jsx">
 import IEcharts from 'vue-echarts-v3/src/full.js'
+import HeaderCard from '@/components/HeaderCard'
 const salesData = {
   x: [],
   y: []
@@ -70,17 +84,21 @@ for (let i = 0; i < 12; i += 1) {
   salesData.x.push(`${i + 1}月`)
   salesData.y.push(Math.floor(Math.random() * 1000) + 200)
 }
-console.log(salesData.y)
 export default {
   name: 'index',
   components: {
-    IEcharts
+    'i-echarts': IEcharts,
+    'header-card': HeaderCard
   },
   mounted () {
     window.onresize = () => {
       this.$refs.test.resize()
+      this.$refs.barSmall.resize()
     }
-    setTimeout(() => { this.$refs.test.resize() }, 10)
+    setTimeout(() => {
+      this.$refs.test.resize()
+      this.$refs.barSmall.resize()
+    }, 10)
   },
   data: () => ({
     badge: {
@@ -120,6 +138,35 @@ export default {
       ],
       color: ['rgba(84, 171, 251, 1)']
     },
+    barSmall: {
+      grid: {
+        top: '10%',
+        left: '1%',
+        right: '1%',
+        bottom: '10%'
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+          type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+        }
+      },
+      xAxis: {
+        show: false,
+        data: salesData.x
+      },
+      yAxis: {
+        show: false
+      },
+      series: [
+        {
+          type: 'bar',
+          barWidth: '40%',
+          data: salesData.y
+        }
+      ],
+      color: ['rgba(84, 171, 251, 1)']
+    },
     rankingList: [
       { name: '工专路 0 号店', value: 323234 },
       { name: '工专路 0 号店', value: 323234 },
@@ -140,48 +187,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.statistics {
-  background: #fff;
-  padding: 8px;
-  .tabsOperation{
-    display: inline-block;
-    a {
-      padding: 0 12px 0 0;
-    }
-  }
-  .tabs-item {
-    height: 320px;
-    display: flex;
-    flex-direction: row;
-    .tabs-items {
-      h1 {
-        font-size: 12px;
-        padding: 0 12px;
+.dashboard {
+  .header-card{
+    margin: 0 0 24px 0;
+    @media screen and (min-width:1366px){
+      .header-card-item {
+        width: 25%;
       }
     }
-    .echarts-bar {
-      width: 70%;
+    @media screen and (min-width:1080px) and (max-width:1366px) {
+      .header-card-item {
+        width: 50%;
+      }
     }
-    .ranking {
-      flex: 1;
-      ul {
-        margin-top: 20px;
-        li {
-          .badge {
+    @media screen and (max-width:1080px){
+      .header-card-item {
+        width: 100%;
+      }
+    }
+  }
+  .statistics {
+    background: #fff;
+    padding: 8px;
+    .tabsOperation{
+      display: inline-block;
+      a {
+        padding: 0 12px 0 0;
+      }
+    }
+    .tabs-item {
+      height: 320px;
+      display: flex;
+      flex-direction: row;
+      .tabs-items {
+        h1 {
+          font-size: 12px;
+          padding: 0 12px;
+        }
+      }
+      .echarts-bar {
+        flex: 1;
+      }
+      .ranking {
+        width: 500px;
+        overflow: hidden;
+        ul {
+          margin-top: 20px;
+          li {
+            .badge {
 
-          }
-          .badge-top {
-            background: #314659;
-          }
-          padding: 8px 0;
-          .value {
-            margin: 0 12px 0 0;
-            float: right;
+            }
+            .badge-top {
+              background: #314659;
+            }
+            padding: 8px 0;
+            .value {
+              margin: 0 12px 0 0;
+              float: right;
+            }
           }
         }
       }
     }
   }
 }
-
 </style>
