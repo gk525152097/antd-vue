@@ -21,7 +21,7 @@
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
                 <i-echarts
-                  :option="barSmall"
+                  :option="barSmall2"
                   @click="onClick"
                   ref="barSmall2"
                 />
@@ -70,46 +70,58 @@
         </template>
         <a-tab-pane tab="销售额" key="1">
           <div class="tabs-item">
-            <div class="echarts-bar tabs-items">
-              <h1>销售趋势</h1>
-              <i-echarts
-                :option="bar"
-                @click="onClick"
-                ref="test"
-              />
-            </div>
-            <div class="ranking tabs-items">
-              <h1>门店销售额排名</h1>
-              <ul>
-                <li v-for="(item, index) in rankingList" v-bind:key="index">
-                  <a-badge :count="index + 1" :numberStyle="index > 3 ? badge : badgeTop" />
-                  {{item.name}}
-                  <span class="value">{{parseFloat(item.value).toLocaleString()}}</span>
-                </li>
-              </ul>
-            </div>
+            <a-row>
+              <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
+                <div class="echarts-bar tabs-items">
+                  <h1>销售趋势</h1>
+                  <i-echarts
+                    :option="bar"
+                    @click="onClick"
+                    ref="test1"
+                  />
+                </div>
+              </a-col>
+              <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
+                <div class="ranking tabs-items">
+                  <h1>门店销售额排名</h1>
+                  <ul>
+                    <li v-for="(item, index) in rankingList" v-bind:key="index">
+                      <a-badge :count="index + 1" :numberStyle="index > 3 ? badge : badgeTop" />
+                      {{item.name}}
+                      <span class="value">{{parseFloat(item.value).toLocaleString()}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </a-col>
+            </a-row>
           </div>
         </a-tab-pane>
         <a-tab-pane tab="访问量" key="2">
           <div class="tabs-item">
-            <div class="echarts-bar tabs-items">
-              <h1>访问趋势</h1>
-              <i-echarts
-                :option="bar"
-                @click="onClick"
-                ref="test"
-              />
-            </div>
-            <div class="ranking tabs-items">
-              <h1>门店访问量排名</h1>
-              <ul>
-                <li v-for="(item, index) in rankingList" v-bind:key="index">
-                  <a-badge :count="index + 1" :numberStyle="index > 3 ? badge : badgeTop" />
-                  {{item.name}}
-                  <span class="value">{{parseFloat(item.value).toLocaleString()}}</span>
-                </li>
-              </ul>
-            </div>
+            <a-row>
+              <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
+                <div class="echarts-bar tabs-items">
+                  <h1>访问趋势</h1>
+                  <i-echarts
+                    :option="bar"
+                    @click="onClick"
+                    ref="test2"
+                  />
+                </div>
+              </a-col>
+              <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
+                <div class="ranking tabs-items">
+                  <h1>门店访问量排名</h1>
+                  <ul>
+                    <li v-for="(item, index) in rankingList" v-bind:key="index">
+                      <a-badge :count="index + 1" :numberStyle="index > 3 ? badge : badgeTop" />
+                      {{item.name}}
+                      <span class="value">{{parseFloat(item.value).toLocaleString()}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </a-col>
+            </a-row>
           </div>
         </a-tab-pane>
       </a-tabs>
@@ -122,11 +134,13 @@ import IEcharts from 'vue-echarts-v3/src/full.js'
 import HeaderCard from '@/components/HeaderCard'
 const salesData = {
   x: [],
-  y: []
+  y: [],
+  barSmall2: []
 }
 for (let i = 0; i < 12; i += 1) {
   salesData.x.push(`${i + 1}月`)
   salesData.y.push(Math.floor(Math.random() * 1000) + 200)
+  salesData.barSmall2.push(Math.floor(Math.random() * 1000) + 200)
 }
 export default {
   name: 'index',
@@ -136,18 +150,20 @@ export default {
   },
   mounted () {
     window.onresize = () => {
-      this.$refs.test.resize()
       this.$refs.barSmall1.resize()
       this.$refs.barSmall2.resize()
       this.$refs.barSmall3.resize()
       this.$refs.barSmall4.resize()
+      this.$refs.test1.resize()
+      this.$refs.test2.resize()
     }
     setTimeout(() => {
-      this.$refs.test.resize()
       this.$refs.barSmall1.resize()
       this.$refs.barSmall2.resize()
       this.$refs.barSmall3.resize()
       this.$refs.barSmall4.resize()
+      this.$refs.test1.resize()
+      this.$refs.test2.resize()
     }, 10)
   },
   data: () => ({
@@ -217,6 +233,37 @@ export default {
       ],
       color: ['rgba(84, 171, 251, 1)']
     },
+    barSmall2:  {
+      tooltip: {
+        trigger: 'axis'
+      },
+      grid: {
+        top: '10%',
+        left: '1%',
+        right: '1%',
+        bottom: '10%'
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        show: false,
+        data: salesData.x
+      },
+      yAxis: {
+        type: 'value',
+        show: false
+      },
+      series: [
+        {
+          type:'line',
+          stack: '总量',
+          data: salesData.y,
+          smooth: true,
+          areaStyle: {}
+        },
+      ],
+      color: ['rgba(151, 95, 228, 1)']
+    },
     rankingList: [
       { name: '工专路 0 号店', value: 323234 },
       { name: '工专路 0 号店', value: 323234 },
@@ -253,21 +300,14 @@ export default {
       }
     }
     .tabs-item {
-      height: 320px;
-      display: flex;
-      flex-direction: row;
       .tabs-items {
+        height: 320px;
         h1 {
           font-size: 12px;
           padding: 0 12px;
         }
       }
-      .echarts-bar {
-        flex: 1;
-      }
       .ranking {
-        width: 500px;
-        overflow: hidden;
         ul {
           margin-top: 20px;
           li {

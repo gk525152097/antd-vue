@@ -1,14 +1,24 @@
 <template>
-  <div>1</div>
+    <div>index</div>
 </template>
 
 <script>
 export default {
-  name: 'index'
-  // todo 做标签页
+  name: 'index',
+  data () {
+    return {
+      tabMenuList: [
+        { name: 'cehis1', path: '/dashboard' },
+        { name: 'cehis1', path: '/dashboard' },
+        { name: 'cehis1', path: '/dashboard' },
+        { name: 'cehis1', path: '/dashboard' },
+        { name: 'cehis1', path: '/dashboard' }
+      ]
+    }
+  }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

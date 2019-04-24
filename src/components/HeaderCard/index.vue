@@ -53,7 +53,7 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     word-break: break-all;
-    font-family: aotu;
+    font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
   .echarts {
     height: 50px;

@@ -1,7 +1,7 @@
 <template>
   <div class="footer">
     <div class="link">
-      <a href="https://preview.pro.ant.design/dashboard/analysis">AntDesignPro</a>
+      <a href="https://preview.pro.ant.design/dashboard/analysis" target="_blank">AntDesignPro</a>
       <a-divider type="vertical" />
       <a href="https://vue.ant.design/docs/vue/introduce-cn/"  target="_blank">AntDesignVue</a>
       <a-divider type="vertical" />
