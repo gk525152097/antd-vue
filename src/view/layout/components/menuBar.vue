@@ -1,5 +1,5 @@
 <template>
-  <a-menu theme="dark" :defaultSelectedKeys="['/']" mode="inline">
+  <a-menu theme="dark" :defaultSelectedKeys="['dashboard']" :defaultOpenKeys="['/']" mode="inline">
     <template v-for="item in routes">
       <a-menu-item v-if="!item.children && !item.hidden" :key="item.path">
         <router-link :to="item.path">
