@@ -33,11 +33,10 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <i-echarts
-                  :option="barSmall"
-                  @click="onClick"
-                  ref="barSmall3"
-                />
+                <div class="rate">
+                  <span>周同比 12%<a-icon class="up" type="caret-up" /></span>
+                  <span>周同比 12%<a-icon class="down" type="caret-down" /></span>
+                </div>
               </template>
             </header-card>
           </div>
@@ -46,11 +45,16 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <i-echarts
-                  :option="barSmall"
-                  @click="onClick"
-                  ref="barSmall4"
-                />
+                <a-tooltip>
+                  <template slot='title'>
+                    当前值:78% 目标值:80%
+                  </template>
+                  <div class="goal-percent">
+                    <div class="goal" style="left: 80%"/>
+                    <div class="bottom-bar"/>
+                    <div class="bar" style="width: 78%"/>
+                  </div>
+                </a-tooltip>
               </template>
             </header-card>
           </div>
@@ -126,12 +130,61 @@
         </a-tab-pane>
       </a-tabs>
     </div>
+    <a-row :gutter="12">
+      <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
+        <div class="center-box">
+          <title-box title="线上热门搜索">
+            <templeta slot="action">
+              <a-dropdown placement="bottomRight" style="padding: 0 12px">
+                <a href="#">
+                  <a-icon type="ellipsis" />
+                </a>
+                <a-menu slot="overlay" @click="onClick">
+                  <a-menu-item key="1">操作1</a-menu-item>
+                  <a-menu-item key="2">操作2</a-menu-item>
+                  <a-menu-item key="3">操作3</a-menu-item>
+                </a-menu>
+              </a-dropdown>
+            </templeta>
+            <templeta slot="body">
+              <a-table :columns="columns" :dataSource="data" size="small" :pagination="pagination" />
+            </templeta>
+          </title-box>
+        </div>
+      </a-col>
+      <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
+        <div class="center-box">
+          <title-box title="销售额类别占比">
+            <template slot="action">
+              <a-radio-group :value="size" @change="handleSizeChange">
+                <a-radio-button value="large">全部渠道</a-radio-button>
+                <a-radio-button value="default">线上</a-radio-button>
+                <a-radio-button value="small">门店</a-radio-button>
+              </a-radio-group>
+              <a-dropdown placement="bottomRight" style="padding: 0 12px">
+                <a href="#">
+                  <a-icon type="ellipsis" />
+                </a>
+                <a-menu slot="overlay" @click="onClick">
+                  <a-menu-item key="1">操作1</a-menu-item>
+                  <a-menu-item key="2">操作2</a-menu-item>
+                  <a-menu-item key="3">操作3</a-menu-item>
+                </a-menu>
+              </a-dropdown>
+            </template>
+            <template slot="body">销售额类别占比</template>
+          </title-box>
+        </div>
+      </a-col>
+    </a-row>
   </div>
 </template>
 
 <script type="text/jsx">
 import IEcharts from 'vue-echarts-v3/src/full.js'
 import HeaderCard from '@/components/HeaderCard'
+import TitleBox from '@/components/TitleBox'
+
 const salesData = {
   x: [],
   y: [],
@@ -142,26 +195,50 @@ for (let i = 0; i < 12; i += 1) {
   salesData.y.push(Math.floor(Math.random() * 1000) + 200)
   salesData.barSmall2.push(Math.floor(Math.random() * 1000) + 200)
 }
+
+const columns = [
+  {
+  title: 'Name',
+  dataIndex: 'name',
+  width: 150,
+},
+  {
+  title: 'Age',
+  dataIndex: 'age',
+  width: 150,
+},
+  {
+  title: 'Address',
+  dataIndex: 'address',
+}];
+const data = [];
+for (let i = 0; i < 100; i++) {
+  data.push({
+    key: i,
+    name: `Edward King ${i}`,
+    age: 32,
+    address: `London, Park Lane no. ${i}`,
+  });
+}
+
 export default {
   name: 'index',
   components: {
     'i-echarts': IEcharts,
-    'header-card': HeaderCard
+    'header-card': HeaderCard,
+    'title-box': TitleBox
   },
   mounted () {
+    // echarts resize 需要确定是否存在 和 层级关系
     window.onresize = () => {
       this.$refs.barSmall1.resize()
       this.$refs.barSmall2.resize()
-      this.$refs.barSmall3.resize()
-      this.$refs.barSmall4.resize()
       this.$refs.test1.resize()
       this.$refs.test2.resize()
     }
     setTimeout(() => {
       this.$refs.barSmall1.resize()
       this.$refs.barSmall2.resize()
-      this.$refs.barSmall3.resize()
-      this.$refs.barSmall4.resize()
       this.$refs.test1.resize()
       this.$refs.test2.resize()
     }, 10)
@@ -272,7 +349,13 @@ export default {
       { name: '工专路 0 号店', value: 323234 },
       { name: '工专路 0 号店', value: 323234 },
       { name: '工专路 0 号店', value: 323234 }
-    ]
+    ],
+    data,
+    columns,
+    pagination: {
+      defaultCurrent: 1,
+      defaultPageSize: 5
+    }
   }),
   methods: {
     onClick (event, instance, ECharts) {
@@ -288,11 +371,50 @@ export default {
   .header-card{
     .header-card-item {
       margin: 0 0 12px 0;
+      .rate {
+        font-size: 14px;
+        flex: 1;
+        .up {
+          font-size: 10px;
+          color: red;
+          padding: 0 4px;
+        }
+        .down {
+          font-size: 10px;
+          color: greenyellow;
+          padding: 0 4px;
+        }
+      }
+      .goal-percent {
+        position: relative;
+        flex: 1;
+        .goal {
+          position: absolute;
+          z-index: 1;
+          height: 18px;
+          margin: -5px 0 0 0;
+          border-left: 4px solid rgb(19, 194, 194);
+        }
+        .bottom-bar {
+          position: absolute;
+          width: 100%;
+          height: 8px;
+          background: #f5f5f5;
+          z-index: 2;
+        }
+        .bar {
+          position: absolute;
+          height: 8px;
+          background: rgb(19, 194, 194);
+          z-index: 3;
+        }
+      }
     }
   }
   .statistics {
     background: #fff;
     padding: 8px;
+    margin-bottom: 12px;
     .tabsOperation{
       display: inline-block;
       a {
@@ -326,6 +448,9 @@ export default {
         }
       }
     }
+  }
+  .center-box {
+    margin-bottom: 12px;
   }
 }
 </style>

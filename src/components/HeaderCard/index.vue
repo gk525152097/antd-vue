@@ -56,7 +56,10 @@ export default {
     font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
   .echarts {
-    height: 50px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
   .line {
     width: 100%;

@@ -21,10 +21,10 @@
         <a-breadcrumb-item>Bill</a-breadcrumb-item>
       </a-breadcrumb>
       <!-- 主体 -->
-      <a-layout-content class="content">
+      <div class="content">
         <!-- 页面 -->
         <MainPage />
-      </a-layout-content>
+      </div>
       <a-layout-footer style="text-align: center">
         <Footer />
       </a-layout-footer>
