@@ -11,7 +11,7 @@
     >
       <a-tab-pane v-for="(item) in tabMenuList" :key="item.path">
         <template slot="tab">
-          <span>
+          <span :class="{ active: activeKey === item.path }">
             <router-link :to="item.path">
               {{item.name}}
             </router-link>
@@ -78,5 +78,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.active {
+  a {
+    color: #1890ff
+  }
+}
 </style>

@@ -15,7 +15,9 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.routes.length) {
         next()
-        store.dispatch('addVisitedViews', to)
+        if (to.path !== '/404') {
+          store.dispatch('addVisitedViews', to)
+        }
       } else {
         store.dispatch('GetMenu', {role: JSON.parse(localStorage.getItem('user')).role})
           .then(GetMenu => {
