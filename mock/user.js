@@ -23,29 +23,34 @@ const roleMenu = {
       redirect: '/dashboard',
       children: [
         {
-          path: 'dashboard',
+          path: '/dashboard',
           name: 'Dashboard',
           icon: 'dashboard',
           component: '/dashboard/index'
         },
         {
-          path: 'analysis',
+          path: '/analysis',
           name: 'analysis',
           component: '/analysis/index'
+        }
+      ]
+    },
+    {
+      path: '/table',
+      name: '列表',
+      icon: 'dashboard',
+      component: 'baseLayout',
+      redirect: '/table/commonTable',
+      children: [
+        {
+          path: '/table/commonTable',
+          name: 'commonTable',
+          icon: 'dashboard',
+          component: '/dashboard/index'
         },
         {
-          path: 'analysis1',
-          name: 'analysis1',
-          component: '/analysis/index'
-        },
-        {
-          path: 'analysis2',
-          name: 'analysis2',
-          component: '/analysis/index'
-        },
-        {
-          path: 'analysis3',
-          name: 'analysis3',
+          path: '/table/commonTable1',
+          name: 'commonTable1',
           component: '/analysis/index'
         }
       ]

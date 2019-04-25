@@ -13,7 +13,7 @@
     <a-layout>
       <!-- 头部 -->
       <a-layout-header class="header">
-        <header />
+        <global-header />
       </a-layout-header>
       <!-- TagsView -->
       <tags-view/>
@@ -23,7 +23,7 @@
         <main-page />
       </div>
       <a-layout-footer style="text-align: center">
-        <footer />
+        <global-footer />
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -40,8 +40,8 @@ export default {
   components: {
     MenuBar,
     MainPage,
-    Footer,
-    Header,
+    'global-footer': Footer,
+    'global-header': Header,
     TagsView
   },
   data () {

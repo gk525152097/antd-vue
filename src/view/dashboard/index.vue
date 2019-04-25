@@ -130,7 +130,7 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <div class="center-box">
           <title-box title="线上热门搜索">
-            <templeta name="action">
+            <templeta slot="action">
               <a-dropdown placement="bottomRight" style="padding: 0 12px">
                 <a href="#">
                   <a-icon type="ellipsis" />
@@ -142,14 +142,14 @@
                 </a-menu>
               </a-dropdown>
             </templeta>
-            <templeta name="body">
+            <templeta slot="body">
               <a-row :gutter="12">
                 <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                   <div class="person-card">
                     <p>
                       搜索用户数
                       <a-tooltip>
-                        <template slot='title'>
+                        <template name='title'>
                           指标说明
                         </template>
                         <a-icon type="exclamation-circle" />
@@ -169,7 +169,7 @@
                     <p>
                       人均搜索次数
                       <a-tooltip>
-                        <template slot='title'>
+                        <template name='title'>
                           指标说明
                         </template>
                         <a-icon type="exclamation-circle" />
@@ -237,28 +237,18 @@ for (let i = 0; i < 12; i += 1) {
 }
 
 const columns = [
-  {
-  title: 'Name',
-  dataIndex: 'name',
-  width: 150,
-},
-  {
-  title: 'Age',
-  dataIndex: 'age',
-  width: 150,
-},
-  {
-  title: 'Address',
-  dataIndex: 'address',
-}];
-const data = [];
+  {title: 'Name', dataIndex: 'name', width: 150},
+  {title: 'Age', dataIndex: 'age', width: 150},
+  {title: 'Address', dataIndex: 'address'}
+]
+const data = []
 for (let i = 0; i < 100; i++) {
   data.push({
     key: i,
     name: `Edward King ${i}`,
     age: 32,
-    address: `London, Park Lane no. ${i}`,
-  });
+    address: `London, Park Lane no. ${i}`
+  })
 }
 
 export default {
@@ -357,7 +347,7 @@ export default {
       ],
       color: ['rgba(84, 171, 251, 1)']
     },
-    barSmall2:  {
+    barSmall2: {
       tooltip: {
         trigger: 'axis'
       },
@@ -379,12 +369,12 @@ export default {
       },
       series: [
         {
-          type:'line',
+          type: 'line',
           stack: '总量',
           data: salesData.y,
           smooth: true,
           areaStyle: {}
-        },
+        }
       ],
       color: ['rgba(151, 95, 228, 1)']
     },

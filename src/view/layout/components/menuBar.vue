@@ -27,12 +27,14 @@ export default {
   },
   data () {
     return {
-      selectedKeys: this.$route.path.split('/')[1]
+      selectedKeys: this.$route.path,
+      openKeys: `/${this.$route.path.split('/')[1]}`
     }
   },
   watch: {
     $route () {
-      this.selectedKeys = this.$route.path.split('/')[1]
+      this.selectedKeys = this.$route.path
+      this.openKeys = `/${this.$route.path.split('/')[1]}`
     }
   },
   computed: {
