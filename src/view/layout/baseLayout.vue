@@ -7,23 +7,23 @@
     >
       <div class="logo" />
       <!-- 菜单项 -->
-      <MenuBar />
+      <menu-bar />
     </a-layout-sider>
     <!-- 主体 -->
     <a-layout>
       <!-- 头部 -->
       <a-layout-header class="header">
-        <Header />
+        <header />
       </a-layout-header>
       <!-- TagsView -->
       <tags-view/>
       <!-- 主体 -->
       <div class="content">
         <!-- 页面 -->
-        <MainPage />
+        <main-page />
       </div>
       <a-layout-footer style="text-align: center">
-        <Footer />
+        <footer />
       </a-layout-footer>
     </a-layout>
   </a-layout>

@@ -11,9 +11,11 @@
     >
       <a-tab-pane v-for="(item) in tabMenuList" :key="item.path">
         <template slot="tab">
-          <router-link :to="item.path">
-            <span>{{item.name}}</span>
-          </router-link>
+          <span>
+            <router-link :to="item.path">
+              {{item.name}}
+            </router-link>
+          </span>
         </template>
       </a-tab-pane>
     </a-tabs>
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import message from '../../../../utils/message'
 export default {
   name: 'index',
   created () {
@@ -28,8 +31,12 @@ export default {
   },
   data () {
     return {
-      tabMenuList: this.$store.getters.visitedviews,
       activeKey: this.$route.path
+    }
+  },
+  computed: {
+    tabMenuList () {
+      return this.$store.getters.visitedviews
     }
   },
   watch: {
@@ -44,24 +51,29 @@ export default {
     remove (targetKey) {
       let activeKey = this.activeKey
       let lastIndex
-      this.tabMenuList.forEach((item, index) => {
-        if (item.path === targetKey) {
-          lastIndex = index - 1
+      if (this.tabMenuList.length === 1) {
+        message({
+          type: 'warn',
+          message: '只有一个路由标签，不能删除！'
+        })
+      } else {
+        this.tabMenuList.forEach((item, index) => {
+          if (item.path === targetKey) {
+            lastIndex = index - 1
+          }
+        })
+        this.$store.dispatch('delVisitedViews', {path: targetKey})
+        const _tabMenuList = this.tabMenuList.filter(item => item.path !== targetKey)
+        if (lastIndex >= 0 && activeKey === targetKey) {
+          activeKey = _tabMenuList[lastIndex].path
         }
-      })
-      const _tabMenuList = this.tabMenuList.filter(item => item.path !== targetKey)
-      if (lastIndex >= 0 && activeKey === targetKey) {
-        activeKey = _tabMenuList[lastIndex].path
+        // this.activeKey = activeKey
+        if (this.activeKey === targetKey) {
+          this.$router.push({path: activeKey})
+        }
       }
-      this.panes = _tabMenuList
-      this.activeKey = activeKey
     }
   }
-// todo 标签页的制作思路
-// 1、ui设计 点击菜单没有的新增 点击时跳转并高亮其他转变为正常（待定） 关闭时跳转上一次页面（路由可作）
-// 2、store设计 主要存储list add remove操作
-// 3、add操作在 路由守卫制作 跳转时 判定是否存在 是不增加 否增加 默认添加一个
-// 4、remove在这里做 点击时关闭 并跳转上一次页面 只剩一个时默认不予以关闭
 }
 </script>
 

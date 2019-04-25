@@ -32,6 +32,21 @@ const roleMenu = {
           path: 'analysis',
           name: 'analysis',
           component: '/analysis/index'
+        },
+        {
+          path: 'analysis1',
+          name: 'analysis1',
+          component: '/analysis/index'
+        },
+        {
+          path: 'analysis2',
+          name: 'analysis2',
+          component: '/analysis/index'
+        },
+        {
+          path: 'analysis3',
+          name: 'analysis3',
+          component: '/analysis/index'
         }
       ]
     }
