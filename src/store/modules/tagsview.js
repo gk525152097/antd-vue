@@ -7,8 +7,7 @@ const tagsview = {
       if (state.visitedviews.some(v => v.path === view.path)) return
       state.visitedviews.push({
         name: view.name,
-        path: view.path,
-        title: view.meta.title || 'no-title'
+        path: view.path
       })
     },
     DEL_VISITED_VIEWS: (state, view) => { // 关闭页签--删除路由数据的方法

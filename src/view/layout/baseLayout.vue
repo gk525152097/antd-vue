@@ -16,10 +16,7 @@
         <Header />
       </a-layout-header>
       <!-- TagsView -->
-      <a-breadcrumb class="tags-view">
-        <a-breadcrumb-item>User</a-breadcrumb-item>
-        <a-breadcrumb-item>Bill</a-breadcrumb-item>
-      </a-breadcrumb>
+      <tags-view/>
       <!-- 主体 -->
       <div class="content">
         <!-- 页面 -->
@@ -37,13 +34,15 @@ import MenuBar from './components/menuBar.vue'
 import MainPage from './components/mainPage.vue'
 import Footer from './footer'
 import Header from './header'
+import TagsView from './components/TagsView'
 export default {
   name: 'baseLayout',
   components: {
     MenuBar,
     MainPage,
     Footer,
-    Header
+    Header,
+    TagsView
   },
   data () {
     return {

@@ -130,7 +130,7 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <div class="center-box">
           <title-box title="线上热门搜索">
-            <templeta slot="action">
+            <templeta name="action">
               <a-dropdown placement="bottomRight" style="padding: 0 12px">
                 <a href="#">
                   <a-icon type="ellipsis" />
@@ -142,7 +142,7 @@
                 </a-menu>
               </a-dropdown>
             </templeta>
-            <templeta slot="body">
+            <templeta name="body">
               <a-row :gutter="12">
                 <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                   <div class="person-card">
@@ -194,7 +194,7 @@
         <div class="center-box">
           <title-box title="销售额类别占比">
             <template slot="action">
-              <a-radio-group :value="size" @change="handleSizeChange">
+              <a-radio-group value="large">
                 <a-radio-button value="large">全部渠道</a-radio-button>
                 <a-radio-button value="default">线上</a-radio-button>
                 <a-radio-button value="small">门店</a-radio-button>
@@ -211,7 +211,7 @@
               </a-dropdown>
             </template>
             <template slot="body">
-              <pie id="echarts7"/>
+              <!--<pie id="echarts7"/>-->
             </template>
           </title-box>
         </div>

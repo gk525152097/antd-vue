@@ -1,5 +1,11 @@
 <template>
-  <a-menu theme="dark" :defaultSelectedKeys="['dashboard']" :defaultOpenKeys="['/']" mode="inline">
+  <a-menu
+    theme="dark"
+    :defaultSelectedKeys="['dashboard']"
+    :defaultOpenKeys="['/']"
+    :selectedKeys="[selectedKeys]"
+    mode="inline"
+  >
     <template v-for="item in routes">
       <a-menu-item v-if="!item.children && !item.hidden" :key="item.path">
         <router-link :to="item.path">
@@ -18,6 +24,16 @@ export default {
   name: 'menuBar',
   components: {
     'sub-menu': SubMenu
+  },
+  data () {
+    return {
+      selectedKeys: this.$route.path.split('/')[1]
+    }
+  },
+  watch: {
+    $route () {
+      this.selectedKeys = this.$route.path.split('/')[1]
+    }
   },
   computed: {
     routes () {

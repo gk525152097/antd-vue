@@ -31,7 +31,6 @@ const getColor = () => {
 }
 for (let i = 0; i < 7; i += 1) {
   const color = getColor()
-  console.log(color)
   fakeDateList.push(
     {value: 335,
       name: '直接访问',
@@ -82,7 +81,7 @@ export default {
                 borderColor: '#ffffff'
               }
             },
-            data: this.computed.fakeDate()
+            data: fakeDateList
           }
         ]
       }
