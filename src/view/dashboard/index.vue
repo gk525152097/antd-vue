@@ -9,8 +9,7 @@
               <template slot="echarts" >
                 <i-echarts
                   :option="barSmall"
-                  @click="onClick"
-                  ref="barSmall1"
+                  ref="echarts1"
                 />
               </template>
             </header-card>
@@ -22,8 +21,7 @@
               <template slot="echarts" >
                 <i-echarts
                   :option="barSmall2"
-                  @click="onClick"
-                  ref="barSmall2"
+                  ref="echarts2"
                 />
               </template>
             </header-card>
@@ -80,8 +78,7 @@
                   <h1>销售趋势</h1>
                   <i-echarts
                     :option="bar"
-                    @click="onClick"
-                    ref="test1"
+                    ref="echarts3"
                   />
                 </div>
               </a-col>
@@ -108,8 +105,7 @@
                   <h1>访问趋势</h1>
                   <i-echarts
                     :option="bar"
-                    @click="onClick"
-                    ref="test2"
+                    ref="echarts4"
                   />
                 </div>
               </a-col>
@@ -147,6 +143,48 @@
               </a-dropdown>
             </templeta>
             <templeta slot="body">
+              <a-row :gutter="12">
+                <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                  <div class="person-card">
+                    <p>
+                      搜索用户数
+                      <a-tooltip>
+                        <template slot='title'>
+                          指标说明
+                        </template>
+                        <a-icon type="exclamation-circle" />
+                      </a-tooltip>
+                    </p>
+                    <h1>12,321 <span>17.4<a-icon style="color: red" type="caret-up" /></span></h1>
+                    <div class="echart">
+                      <i-echarts
+                        :option="barSmall2"
+                        ref="echarts5"
+                      />
+                    </div>
+                  </div>
+                </a-col>
+                <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+                  <div class="person-card">
+                    <p>
+                      人均搜索次数
+                      <a-tooltip>
+                        <template slot='title'>
+                          指标说明
+                        </template>
+                        <a-icon type="exclamation-circle" />
+                      </a-tooltip>
+                    </p>
+                    <h1>2.7 <span>26.2<a-icon style="color: greenyellow" type="caret-down" /></span></h1>
+                    <div class="echart">
+                      <i-echarts
+                        :option="barSmall2"
+                        ref="echarts6"
+                      />
+                    </div>
+                  </div>
+                </a-col>
+              </a-row>
               <a-table :columns="columns" :dataSource="data" size="small" :pagination="pagination" />
             </templeta>
           </title-box>
@@ -172,7 +210,9 @@
                 </a-menu>
               </a-dropdown>
             </template>
-            <template slot="body">销售额类别占比</template>
+            <template slot="body">
+              <pie id="echarts7"/>
+            </template>
           </title-box>
         </div>
       </a-col>
@@ -184,7 +224,7 @@
 import IEcharts from 'vue-echarts-v3/src/full.js'
 import HeaderCard from '@/components/HeaderCard'
 import TitleBox from '@/components/TitleBox'
-
+import Pie from '@/components/Pie'
 const salesData = {
   x: [],
   y: [],
@@ -226,21 +266,28 @@ export default {
   components: {
     'i-echarts': IEcharts,
     'header-card': HeaderCard,
-    'title-box': TitleBox
+    'title-box': TitleBox,
+    'pie': Pie
   },
   mounted () {
     // echarts resize 需要确定是否存在 和 层级关系
     window.onresize = () => {
-      this.$refs.barSmall1.resize()
-      this.$refs.barSmall2.resize()
-      this.$refs.test1.resize()
-      this.$refs.test2.resize()
+      this.$refs.echarts1.resize()
+      this.$refs.echarts2.resize()
+      this.$refs.echarts3.resize()
+      this.$refs.echarts5.resize()
+      this.$refs.echarts6.resize()
+
+      this.$refs.echarts4.resize()
     }
     setTimeout(() => {
-      this.$refs.barSmall1.resize()
-      this.$refs.barSmall2.resize()
-      this.$refs.test1.resize()
-      this.$refs.test2.resize()
+      this.$refs.echarts1.resize()
+      this.$refs.echarts2.resize()
+      this.$refs.echarts3.resize()
+      this.$refs.echarts5.resize()
+      this.$refs.echarts6.resize()
+
+      this.$refs.echarts4.resize()
     }, 10)
   },
   data: () => ({
@@ -451,6 +498,28 @@ export default {
   }
   .center-box {
     margin-bottom: 12px;
+    .person-card {
+      p {
+        margin: 0;
+        color: #a8a8a8;
+      }
+      h1 {
+        margin: 4px 0;
+        span {
+          font-size: 10px;
+          margin: 0 12px;
+          i {
+            margin: 0 4px;
+          }
+        }
+      }
+      .echart {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+    }
   }
 }
 </style>
