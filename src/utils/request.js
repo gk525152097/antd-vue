@@ -2,21 +2,17 @@ import axios from 'axios'
 import router from '../router'
 import Message from '@/utils/message'
 import { notification } from 'ant-design-vue'
-import store from '../store'
 // import { getToken } from '@/utils/auth'
 
 // 创建axios实例
 const service = axios.create({
-  baseURI: process.env.BASE_URL,
+  // baseURL: 'http://127.0.0.1:3000',
   timeout: 50000 // 请求超时时间
 })
 
 // request拦截器
 service.interceptors.request.use(
   config => {
-    if (store.getters.token) {
-      // config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
-    }
     return config
   },
   error => {
@@ -53,11 +49,11 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    console.log(this)
-    console.log(router)
+    console.log(error.response.status) // for debug
     switch (error.response.status) {
       case 401:
+        localStorage.removeItem('user')
+        router.push({name: 'login'})
         break
       case 404:
         router.push({path: '/404'})
@@ -66,7 +62,7 @@ service.interceptors.response.use(
         router.push({path: '/404'})
         break
     }
-    return Promise.reject(error)
+    // return Promise.reject(error)
   }
 )
 
