@@ -7,9 +7,8 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <i-echarts
+                <charts
                   :option="barSmall"
-                  ref="echarts1"
                 />
               </template>
             </header-card>
@@ -19,9 +18,8 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <i-echarts
+                <charts
                   :option="barSmall2"
-                  ref="echarts2"
                 />
               </template>
             </header-card>
@@ -76,9 +74,8 @@
               <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                 <div class="echarts-bar tabs-items">
                   <h1>销售趋势</h1>
-                  <i-echarts
+                  <charts
                     :option="bar"
-                    ref="echarts3"
                   />
                 </div>
               </a-col>
@@ -103,9 +100,8 @@
               <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                 <div class="echarts-bar tabs-items">
                   <h1>访问趋势</h1>
-                  <i-echarts
+                  <charts
                     :option="bar"
-                    ref="echarts4"
                   />
                 </div>
               </a-col>
@@ -126,7 +122,7 @@
         </a-tab-pane>
       </a-tabs>
     </div>
-    <a-row :gutter="12">
+    <a-row :gutter="12" type="flex">
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <div class="center-box">
           <title-box title="线上热门搜索">
@@ -157,9 +153,8 @@
                     </p>
                     <h1>12,321 <span>17.4<a-icon style="color: red" type="caret-up" /></span></h1>
                     <div class="echart">
-                      <i-echarts
+                      <charts
                         :option="barSmall2"
-                        ref="echarts5"
                       />
                     </div>
                   </div>
@@ -177,9 +172,8 @@
                     </p>
                     <h1>2.7 <span>26.2<a-icon style="color: greenyellow" type="caret-down" /></span></h1>
                     <div class="echart">
-                      <i-echarts
+                      <charts
                         :option="barSmall2"
-                        ref="echarts6"
                       />
                     </div>
                   </div>
@@ -194,7 +188,7 @@
         <div class="center-box">
           <title-box title="销售额类别占比">
             <template slot="action">
-              <a-radio-group value="large">
+              <a-radio-group size="small" value="large">
                 <a-radio-button value="large">全部渠道</a-radio-button>
                 <a-radio-button value="default">线上</a-radio-button>
                 <a-radio-button value="small">门店</a-radio-button>
@@ -221,7 +215,7 @@
 </template>
 
 <script type="text/jsx">
-import IEcharts from 'vue-echarts-v3/src/full.js'
+import Charts from '@/components/Charts'
 import HeaderCard from '@/components/HeaderCard'
 import TitleBox from '@/components/TitleBox'
 import Pie from '@/components/Pie'
@@ -254,31 +248,10 @@ for (let i = 0; i < 100; i++) {
 export default {
   name: 'index',
   components: {
-    'i-echarts': IEcharts,
+    'charts': Charts,
     'header-card': HeaderCard,
     'title-box': TitleBox,
     'pie': Pie
-  },
-  mounted () {
-    // echarts resize 需要确定是否存在 和 层级关系
-    window.onresize = () => {
-      this.$refs.echarts1.resize()
-      this.$refs.echarts2.resize()
-      this.$refs.echarts3.resize()
-      this.$refs.echarts5.resize()
-      this.$refs.echarts6.resize()
-
-      this.$refs.echarts4.resize()
-    }
-    setTimeout(() => {
-      this.$refs.echarts1.resize()
-      this.$refs.echarts2.resize()
-      this.$refs.echarts3.resize()
-      this.$refs.echarts5.resize()
-      this.$refs.echarts6.resize()
-
-      this.$refs.echarts4.resize()
-    }, 10)
   },
   data: () => ({
     badge: {
@@ -487,7 +460,8 @@ export default {
     }
   }
   .center-box {
-    margin-bottom: 12px;
+    padding: 0 0 12px;
+    height: 100%;
     .person-card {
       p {
         margin: 0;

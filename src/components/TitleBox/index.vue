@@ -24,17 +24,25 @@ export default {
 <style lang="scss" scoped>
 .title-box {
   background: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   .title-wrapper {
     padding: 12px;
     border-bottom: 1px solid #e8e8e8;
-    .title {
-      display: inline-block;
-    }
-    .action {
-      float: right;
-    }
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    line-height: 24px;
+    /*.title {*/
+      /*display: inline-block;*/
+    /*}*/
+    /*.action {*/
+      /*float: right;*/
+    /*}*/
   }
   .box-body {
+    flex: 1;
     padding: 12px;
   }
 }
