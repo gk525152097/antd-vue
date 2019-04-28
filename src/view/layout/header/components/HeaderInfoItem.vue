@@ -11,12 +11,13 @@
           </div>
         </div>
         <p class="text" v-if="text" :title="text">{{text}}</p>
-        <span class="time" v-if="time">{{time}}</span>
+        <span class="time" v-if="time">{{newTime}}</span>
       </div>
     </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'HeaderInfoItem',
   props: {
@@ -32,6 +33,15 @@ export default {
       required: true
     },
     time: ''
+  },
+  computed: {
+    newTime () {
+      if (!!Number(this.time)) {
+        return moment(new Date(Number(this.time)).toLocaleString()).fromNow()
+      } else {
+        return moment(this.time).fromNow()
+      }
+    }
   }
 }
 </script>
@@ -55,7 +65,7 @@ export default {
     .title {
       display: flex;
       h1 {
-        font-size: 18px;
+        font-size: 14px;
         margin: 0;
         width: 60%;
         overflow: hidden;
@@ -70,14 +80,14 @@ export default {
       }
     }
     .text {
-      font-size: 14px;
+      font-size: 12px;
       margin: 0 0 4px;
       overflow: hidden;
       text-overflow:ellipsis;
       white-space: nowrap;
     }
     .time {
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 }

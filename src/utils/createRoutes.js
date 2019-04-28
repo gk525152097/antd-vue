@@ -29,7 +29,7 @@ const buildRoutes = (menuList) => {
 
 const createRoutes = (menuList) => {
   const route = buildRoutes(menuList)
-  route.push({ path: '*', redirect: '/404', hidden: true })
+  route.push({ path: '*', redirect: '/error/404', hidden: true })
   return route
 }
 

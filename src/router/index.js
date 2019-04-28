@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import userLayout from '../view/layout/userLayout' // BaseLayout
+import baseLayout from '../view/layout/baseLayout' // BaseLayout
 
 // import HelloWorld from '@/components/HelloWorld'
-// import baseLayout from '../view/layout/baseLayout' // BaseLayout
 
 Vue.use(Router)
 
@@ -17,7 +17,14 @@ export const constantRoutes = [
       { path: 'register', name: 'register', component: () => import('@/view/register/index') }
     ]
   },
-  { path: '/404', name: '404', component: () => import('@/view/404'), hidden: true }
+  {
+    path: '/error',
+    component: baseLayout,
+    hidden: true,
+    children: [
+      { path: '404', name: '404', component: () => import('@/view/404'), hidden: true }
+    ]
+  }
 // ,
 //   {
 //     path: '/',

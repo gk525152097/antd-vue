@@ -20,18 +20,17 @@ const roleMenu = {
       name: '首页',
       icon: 'dashboard',
       component: 'baseLayout',
-      redirect: '/dashboard',
+      redirect: '/analysis',
       children: [
         {
-          path: '/dashboard',
-          name: 'Dashboard',
-          icon: 'dashboard',
-          component: '/dashboard/index'
+          path: '/analysis',
+          name: '分析页',
+          component: '/analysis/index'
         },
         {
-          path: '/analysis',
-          name: 'analysis',
-          component: '/analysis/index'
+          path: '/monitor',
+          name: '监控页',
+          component: '/monitor/index'
         }
       ]
     },
@@ -45,7 +44,6 @@ const roleMenu = {
         {
           path: '/table/commonTable',
           name: 'commonTable',
-          icon: 'dashboard',
           component: '/dashboard/index'
         },
         {

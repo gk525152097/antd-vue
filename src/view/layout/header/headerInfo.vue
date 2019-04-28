@@ -29,60 +29,60 @@ export default {
       inform: [
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '1'
+          text: '你收到了 14 份新周报',
+          time: '2019-04-27'
         },
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '2'
+          text: '你推荐的 曲妮妮 已通过第三轮面试',
+          time: '1556416996000'
         },
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '3'
+          text: '这种模板可以区分多种通知类型',
+          time: '2017-08-09'
         },
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '4'
+          text: '左侧图标用于区分不同的类型',
+          time: '2017-08-09'
         }
       ],
       information: [
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '1'
+          title: '曲丽丽 评论了你',
+          text: '描述信息描述信息描述信息',
+          time: '2017-08-09'
         },
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '1'
+          title: '朱偏右 回复了你',
+          text: '这种模板用于提醒谁与你发生了互动，左侧放『谁』的头像',
+          time: '2017-08-09'
         },
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '1'
+          title: '标题',
+          text: '这种模板用于提醒谁与你发生了互动，左侧放『谁』的头像',
+          time: '2018-08-09'
         }
       ],
       backlog: [
         {
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+          title: '第三方紧急代码变更',
+          text: '冠霖提交于 2017-01-06，需在 2017-01-07 前完成代码变更任务',
           status: {
-            text: '等待',
-            color: '#245724'
+            text: '马上到期',
+            color: '#f5222d'
           }
         },
         {
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+          title: '任务名称',
+          text: '任务需要在 2017-01-12 20:00 前启动',
           status: {
-            text: '等待',
-            color: '#245724'
+            text: '未开始',
+            color: 'rgba(0,0,0,.65)'
           }
         }
       ]
@@ -102,8 +102,8 @@ export default {
       this.inform.push(
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '2'
+          text: '你收到了 14 份新周报',
+          time: Number(new Date())
         }
       )
     },
@@ -111,20 +111,20 @@ export default {
       this.information.push(
         {
           avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
-          time: '1'
+          title: '朱偏右 回复了你',
+          text: '这种模板用于提醒谁与你发生了互动，左侧放『谁』的头像',
+          time: '2019-02-07'
         }
       )
     },
     addBacklog () {
       this.backlog.push(
         {
-          title: 'cesssssssssssssssssssssssssssssss',
-          text: 'sddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+          title: '信息安全考试',
+          text: '指派竹尔于 2017-01-09 前完成更新并发布',
           status: {
-            text: '等待',
-            color: '#245724'
+            text: '进行中',
+            color: '#1890ff'
           }
         }
       )

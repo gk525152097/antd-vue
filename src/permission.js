@@ -15,7 +15,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.routes.length) {
         next()
-        if (to.path !== '/404') {
+        if (to.path !== '/error/404') {
           store.dispatch('addVisitedViews', to)
         }
       } else {

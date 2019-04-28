@@ -1,6 +1,6 @@
 <template>
   <div class="header-info-box">
-    <transition-group name="fade-transition" mode="out-in" tag="ul">
+    <transition-group name="fade-transform" mode="out-in" tag="ul">
       <li class="item" v-for="(item, index) in infoList" :key="index" @click="removeItem(index)">
         <header-info-item
           :avatar="item.avatar"

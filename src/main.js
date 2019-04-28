@@ -16,6 +16,10 @@ Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.use(Antd)
 
+Date.prototype.toLocaleString = function () {
+  return `${this.getFullYear()}/${(Array(2).join(0) + (this.getMonth() + 1)).slice(-2)}/${(Array(2).join(0) + this.getDate()).slice(-2)} ${(Array(2).join(0) + this.getHours()).slice(-2)}:${(Array(2).join(0) + this.getMinutes()).slice(-2)}:${(Array(2).join(0) + this.getSeconds()).slice(-2)}`
+}
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
