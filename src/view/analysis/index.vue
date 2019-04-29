@@ -205,7 +205,7 @@
               </a-dropdown>
             </template>
             <template slot="body">
-              <!--<pie id="echarts7"/>-->
+              <pie />
             </template>
           </title-box>
         </div>

@@ -1,38 +1,37 @@
 <template>
-    <a-row>
-      <a-col :xs="24" :sm="24" :md="12" :lg="18" :xl="18">
-        <i-echarts
-          :option="option"
-          :ref="id"
-        />
-      </a-col>
-      <a-col :xs="24" :sm="24" :md="12" :lg="6" :xl="6">
+  <a-row type="flex" style="height: 100%;">
+    <a-col :xs="24" :sm="24" :md="12" :lg="16" :xl="16">
+      <charts :option="option"/>
+    </a-col>
+    <a-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
+      <div class="list-box">
         <ul>
-          <li v-for="(item, index) in fakeDate" :key="index">
-            <a-badge dot :numberStyle="`background: ${item.itemStyle.color}`" />
+          <li v-for="(item, index) in fakeDate" :key="index" @click="(e) => handleVisible(e, index)">
+            <span class="dot" :style="{'background': item.itemStyle.color}" v-show="item.visible"/>
             {{item.name}}
-            <Divider type="vertical" />
             {{`￥${item.value}`}}
           </li>
         </ul>
-      </a-col>
-    </a-row>
+      </div>
+    </a-col>
+  </a-row>
 </template>
 
 <script>
-import IEcharts from 'vue-echarts-v3/src/full.js'
+import Charts from '@/components/Charts'
 const fakeDateList = []
 const getColor = () => {
-  const r = Math.floor(Math.random() * 256)
-  const g = Math.floor(Math.random() * 256)
-  const b = Math.floor(Math.random() * 256)
+  const r = Math.floor(Math.random() * 255)
+  const g = Math.floor(Math.random() * 255)
+  const b = Math.floor(Math.random() * 255)
   const rgb = '(' + r + ',' + g + ',' + b + ')'
   return rgb
 }
 for (let i = 0; i < 7; i += 1) {
   const color = getColor()
   fakeDateList.push(
-    {value: 335,
+    {
+      value: 335,
       name: '直接访问',
       itemStyle: {
         color: `rgb${color}`
@@ -43,13 +42,14 @@ for (let i = 0; i < 7; i += 1) {
 export default {
   name: 'index',
   components: {
-    'i-echarts': IEcharts
+    'charts': Charts
   },
   props: {
     id: ''
   },
   data () {
     return {
+      chartsDate: fakeDateList,
       option: {
         tooltip: {
           trigger: 'item',
@@ -59,7 +59,7 @@ export default {
           {
             name: '访问来源',
             type: 'pie',
-            radius: ['50%', '70%'],
+            radius: ['40%', '60%'],
             avoidLabelOverlap: false,
             label: {
               normal: {
@@ -87,9 +87,22 @@ export default {
       }
     }
   },
+  methods: {
+    handleVisible (e, index) {
+      console.log(e, index)
+      this.fakeDate[index].visible = !this.fakeDate[index].visible
+      this.chartsDate = this.fakeDate.filter(item => item.visible)
+    }
+  },
   computed: {
     fakeDate: function () {
-      return fakeDateList
+      const _fackDate = fakeDateList.filter(item => item.visible = true)
+      return _fackDate
+    }
+  },
+  watch: {
+    chartsDate: function () {
+      this.option.series[0].data = this.chartsDate
     }
   }
   // todo 首页饼图组件制作 有点点小难
@@ -97,5 +110,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.list-box {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  .dot {
+    display: inline-block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: #555;
+  }
+}
 </style>
