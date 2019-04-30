@@ -1,15 +1,24 @@
 <template>
   <a-row type="flex" style="height: 100%;">
     <a-col :xs="24" :sm="24" :md="12" :lg="16" :xl="16">
-      <charts :option="option"/>
+      <div class="charts-box">
+        <div class="charts-box-item title">
+          <h3>{{title}}</h3>
+          <h4>{{totalValue}}</h4>
+        </div>
+        <div class="charts-box-item charts">
+          <charts :option="option"/>
+        </div>
+      </div>
     </a-col>
     <a-col :xs="24" :sm="24" :md="12" :lg="8" :xl="8">
       <div class="list-box">
         <ul>
-          <li v-for="(item, index) in fakeDate" :key="index" @click="(e) => handleVisible(e, index)">
+          <li class="list-item" v-for="(item, index) in rootDate" :key="index" @click="handleVisible(index)">
             <span class="dot" :style="{'background': item.itemStyle.color}" v-show="item.visible"/>
-            {{item.name}}
-            {{`￥${item.value}`}}
+            <span class="dot" v-show="!item.visible"/>
+            <span class="name">{{item.name}}</span>
+            <span class="value">{{`￥${item.value}`}}</span>
           </li>
         </ul>
       </div>
@@ -20,23 +29,9 @@
 <script>
 import Charts from '@/components/Charts'
 const fakeDateList = []
-const getColor = () => {
-  const r = Math.floor(Math.random() * 255)
-  const g = Math.floor(Math.random() * 255)
-  const b = Math.floor(Math.random() * 255)
-  const rgb = '(' + r + ',' + g + ',' + b + ')'
-  return rgb
-}
 for (let i = 0; i < 7; i += 1) {
-  const color = getColor()
   fakeDateList.push(
-    {
-      value: 335,
-      name: '直接访问',
-      itemStyle: {
-        color: `rgb${color}`
-      }
-    }
+    { value: 335, name: '直接访问' }
   )
 }
 export default {
@@ -45,10 +40,19 @@ export default {
     'charts': Charts
   },
   props: {
-    id: ''
+    id: '',
+    title: {
+      default: '总值'
+    }
+  },
+  mounted () {
+    const _rootDate = this.rootDate.filter(item => item.visible = true)
+    const _rootDate_ = _rootDate.filter(item => item.itemStyle = {color: `rgb${this.getColor()}`})
+    this.rootDate = _rootDate_
   },
   data () {
     return {
+      rootDate: fakeDateList,
       chartsDate: fakeDateList,
       option: {
         tooltip: {
@@ -87,39 +91,84 @@ export default {
       }
     }
   },
-  methods: {
-    handleVisible (e, index) {
-      console.log(e, index)
-      this.fakeDate[index].visible = !this.fakeDate[index].visible
-      this.chartsDate = this.fakeDate.filter(item => item.visible)
+  computed: {
+    totalValue () {
+      let _totalValue = 0
+      this.rootDate.filter(item => _totalValue += item.value)
+      return _totalValue
     }
   },
-  computed: {
-    fakeDate: function () {
-      const _fackDate = fakeDateList.filter(item => item.visible = true)
-      return _fackDate
+  methods: {
+    handleVisible (index) {
+      this.rootDate[index].visible = !this.rootDate[index].visible
+      this.chartsDate = this.rootDate.filter(item => item.visible)
+    },
+    getColor () {
+      return '(' + [
+        Math.round(Math.random() * 255),
+        Math.round(Math.random() * 255),
+        Math.round(Math.random() * 255)
+      ].join(',') + ')'
     }
   },
   watch: {
     chartsDate: function () {
       this.option.series[0].data = this.chartsDate
+      const _rootDate = this.rootDate
+      this.rootDate = this.chartsDate
+      this.rootDate = _rootDate
     }
   }
-  // todo 首页饼图组件制作 有点点小难
 }
 </script>
 
 <style lang="scss" scoped>
+.charts-box {
+  position: relative;
+  min-height: 150px;
+  width: 100%;
+  height: 100%;
+  .charts-box-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    &.title {
+      z-index: 1;
+    }
+  }
+}
 .list-box {
   display: flex;
   align-items: center;
   height: 100%;
-  .dot {
-    display: inline-block;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background: #555;
+  ul {
+    width: 100%;
+  }
+  .list-item{
+    padding: 0 0 8px;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover {
+      color: rgb(24, 144, 255);
+    }
+    .dot {
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      background: rgb(161, 161, 161);
+      margin-right: 8px;
+    }
+    .value {
+      float: right;
+    }
   }
 }
 </style>

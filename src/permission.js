@@ -9,7 +9,7 @@ const whiteList = ['/user/login', '/user/register'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (to.name) {
-    document.title = to.name
+    document.title = `antd-vue ${to.name}`
   }
   if (localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')) && JSON.parse(localStorage.getItem('user')).role) {
     if (to.path === '/user/login' || to.path === '/user/register') {
