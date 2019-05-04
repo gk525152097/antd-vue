@@ -15,7 +15,7 @@
       <div class="list-box">
         <ul>
           <li class="list-item" v-for="(item, index) in rootDate" :key="index" @click="handleVisible(index)">
-            <span class="dot" :style="{'background': item.itemStyle.color}" v-show="item.visible"/>
+            <span class="dot" :style="{'background': item.itemStyle ? item.itemStyle.color : null}" v-show="item.visible"/>
             <span class="dot" v-show="!item.visible"/>
             <span class="name">{{item.name}}</span>
             <span class="value">{{`￥${item.value}`}}</span>

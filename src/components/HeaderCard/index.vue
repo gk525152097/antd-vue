@@ -59,7 +59,6 @@ export default {
     height: 40px;
     display: flex;
     align-items: center;
-    overflow: hidden;
   }
   .line {
     width: 100%;

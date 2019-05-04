@@ -4,9 +4,9 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
         <div class="box">
           <title-box title="活动实时交易情况">
-            <templeta slot="body">
+            <template slot="body">
               ss
-            </templeta>
+            </template>
           </title-box>
         </div>
       </a-col>
@@ -14,16 +14,16 @@
         <div class="left-box">
           <div class="box left-box-item">
             <title-box title="活动情况预测">
-              <templeta slot="body">
+              <template slot="body">
                 ss
-              </templeta>
+              </template>
             </title-box>
           </div>
           <div class="box left-box-item">
             <title-box title="券核效率">
-              <templeta slot="body">
+              <template slot="body">
                 ss
-              </templeta>
+              </template>
             </title-box>
           </div>
         </div>
@@ -33,33 +33,33 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <div class="box">
           <title-box title="各品类占比">
-            <templeta slot="body">
+            <template slot="body">
               ss
-            </templeta>
+            </template>
           </title-box>
         </div>
       </a-col>
       <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
        <div class="box">
          <title-box title="热门搜索">
-           <templeta slot="body">
+           <template slot="body">
              <charts
                :option="barSmall"
                refid="test2"
              />
-           </templeta>
+           </template>
          </title-box>
        </div>
       </a-col>
       <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
         <div class="box">
           <title-box title="资源剩余">
-            <templeta slot="body">
+            <template slot="body">
               <charts
                 :option="barSmall"
                 refid="test"
               />
-            </templeta>
+            </template>
           </title-box>
         </div>
       </a-col>

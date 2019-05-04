@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <template>
   <div class="dashboard">
     <div class="header-card">
@@ -7,9 +6,7 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <charts
-                  :option="barSmall"
-                />
+                <charts :option="barSmall"/>
               </template>
             </header-card>
           </div>
@@ -18,9 +15,7 @@
           <div class="header-card-item">
             <header-card Title="总销售额" BodyData="123456" Footer="日销售额">
               <template slot="echarts" >
-                <charts
-                  :option="barSmall2"
-                />
+                <charts :option="barSmall2"/>
               </template>
             </header-card>
           </div>
@@ -74,9 +69,7 @@
               <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                 <div class="echarts-bar tabs-items">
                   <h1>销售趋势</h1>
-                  <charts
-                    :option="bar"
-                  />
+                  <charts :option="bar"/>
                 </div>
               </a-col>
               <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
@@ -100,9 +93,7 @@
               <a-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
                 <div class="echarts-bar tabs-items">
                   <h1>访问趋势</h1>
-                  <charts
-                    :option="bar"
-                  />
+                  <charts :option="bar"/>
                 </div>
               </a-col>
               <a-col :xs="24" :sm="24" :md="24" :lg="6" :xl="6">
@@ -126,7 +117,7 @@
       <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12">
         <div class="center-box">
           <title-box title="线上热门搜索">
-            <templeta slot="action">
+            <template slot="action">
               <a-dropdown placement="bottomRight" style="padding: 0 12px">
                 <a href="#">
                   <a-icon type="ellipsis" />
@@ -137,15 +128,15 @@
                   <a-menu-item key="3">操作3</a-menu-item>
                 </a-menu>
               </a-dropdown>
-            </templeta>
-            <templeta slot="body">
+            </template>
+            <template slot="body">
               <a-row :gutter="12">
                 <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
                   <div class="person-card">
                     <p>
                       搜索用户数
                       <a-tooltip>
-                        <template name='title'>
+                        <template slot='title'>
                           指标说明
                         </template>
                         <a-icon type="exclamation-circle" />
@@ -153,9 +144,7 @@
                     </p>
                     <h1>12,321 <span>17.4<a-icon style="color: red" type="caret-up" /></span></h1>
                     <div class="echart">
-                      <charts
-                        :option="barSmall2"
-                      />
+                      <charts :option="barSmall2"/>
                     </div>
                   </div>
                 </a-col>
@@ -164,7 +153,7 @@
                     <p>
                       人均搜索次数
                       <a-tooltip>
-                        <template name='title'>
+                        <template slot='title'>
                           指标说明
                         </template>
                         <a-icon type="exclamation-circle" />
@@ -172,15 +161,13 @@
                     </p>
                     <h1>2.7 <span>26.2<a-icon style="color: greenyellow" type="caret-down" /></span></h1>
                     <div class="echart">
-                      <charts
-                        :option="barSmall2"
-                      />
+                      <charts :option="barSmall2"/>
                     </div>
                   </div>
                 </a-col>
               </a-row>
               <a-table :columns="columns" :dataSource="data" size="small" :pagination="pagination" />
-            </templeta>
+            </template>
           </title-box>
         </div>
       </a-col>
