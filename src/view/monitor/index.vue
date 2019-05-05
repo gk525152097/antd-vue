@@ -63,7 +63,7 @@
           <div class="box left-box-item">
             <title-box title="券核效率">
               <template slot="body">
-                ss
+                <charts :option="optionGauge"/>
               </template>
             </title-box>
           </div>
@@ -141,6 +141,7 @@
 <script>
 import Charts from '@/components/Charts'
 import TitleBox from '@/components/TitleBox'
+import echarts from 'echarts'
 const salesData = {
   x: [],
   y: [],
@@ -326,6 +327,117 @@ export default {
               {type: 'average', name: '平均值'}
             ]
           }
+        }]
+      },
+      optionGauge: {
+        tooltip: {
+          show: true,
+          // formatter: "{a} <br/>{b} {c}",
+          backgroundColor: '#F7F9FB',
+          borderColor: '#92DAFF',
+          borderWidth: '1px',
+          textStyle: {
+            color: 'black'
+          },
+          formatter: function (param) {
+            return '<em style="color:' + param.color + ';">' + param.value + '</em> 分'
+          }
+
+        },
+        series: [{
+          name: '信用分',
+          type: 'gauge',
+          min: 0,
+          max: 1000,
+          axisLine: {
+            show: true,
+            lineStyle: {
+              width: 14,
+              shadowBlur: 0,
+              color: [
+                [
+                  1, new echarts.graphic.LinearGradient(
+                    0, 0, 1, 0, [{
+                      offset: 0,
+                      color: '#ae3df6'
+                    },
+                    {
+                      offset: 1,
+                      color: '#53bef9'
+                    }
+                    ]
+                  )
+                ],
+                [
+                  1, '#222e7d'
+                ]
+              ]
+            }
+          },
+          axisTick: {
+            show: false,
+            splitNumber: 1
+          },
+          splitLine: {
+            show: false,
+            length: 40,
+            lineStyle: {
+              // color:'black'
+            }
+          },
+          axisLabel: {
+            formatter: function (e) {
+              switch (e + '') {
+                case '100':
+                  return '较差'
+                case '300':
+                  return '中等'
+                case '500':
+                  return '良好'
+                case '700':
+                  return '优秀'
+                case '900':
+                  return '极好'
+                default:
+                  return ''
+              }
+            },
+            textStyle: {
+              fontSize: 12,
+              fontWeight: ''
+            }
+          },
+          pointer: {
+            show: true
+          },
+          detail: {
+            // show:false,
+            formatter: function (param) {
+              let level = '';
+              if (param < 470) {
+                level = '较差'
+              } else if (param < 590) {
+                level = '中等'
+              } else if (param < 710) {
+                level = '良好'
+              } else if (param < 830) {
+                level = '优秀'
+              } else if (param <= 950) {
+                level = '极好'
+              } else {
+                level = '暂无'
+              }
+              return level
+            },
+            offsetCenter: [0, 140],
+            textStyle: {
+              fontSize: 40
+            }
+          },
+          data: [{
+            name: '',
+            value: 321
+          }]
         }]
       }
     }
