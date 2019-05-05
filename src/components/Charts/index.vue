@@ -7,6 +7,8 @@
 
 <script>
 import IEcharts from 'vue-echarts-v3/src/full.js'
+import 'echarts-liquidfill'
+import 'echarts-wordcloud'
 export default {
   name: 'index',
   components: {

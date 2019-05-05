@@ -218,8 +218,8 @@ for (let i = 0; i < 12; i += 1) {
 }
 
 const columns = [
-  {title: 'Name', dataIndex: 'name', width: 150},
-  {title: 'Age', dataIndex: 'age', width: 150},
+  {title: 'Name', dataIndex: 'name'},
+  {title: 'Age', dataIndex: 'age'},
   {title: 'Address', dataIndex: 'address'}
 ]
 const data = []
