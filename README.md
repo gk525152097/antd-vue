@@ -80,4 +80,15 @@ user为对应模块数据源
 封装好的cookie插件 更方便cookie的使用
 ```
 
+> echarts
+``` bash
+#echarts-v3
+
+#echarts-wordCloud
+
+#echarts-liquidfill
+
+#echarts-lg
+```
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
