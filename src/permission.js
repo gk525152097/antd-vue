@@ -7,6 +7,12 @@ NProgress.configure({ showSpinner: false }) // NProgress configuration
 
 const whiteList = ['/user/login', '/user/register'] // 不重定向白名单
 router.beforeEach((to, from, next) => {
+  if (localStorage.getItem('tagsView')) {
+    const tags = JSON.parse(localStorage.getItem('tagsView'))
+    for (let i = 0; i < tags.length; i += 1) {
+      store.dispatch('addVisitedViews', tags[i])
+    }
+  }
   NProgress.start()
   if (to.name) {
     document.title = `antd-vue ${to.name}`

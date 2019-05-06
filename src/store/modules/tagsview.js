@@ -1,3 +1,5 @@
+import store from "../index";
+
 const tagsview = {
   state: {
     visitedviews: [] // 存放所有浏览过的且不重复的路由数据
@@ -9,10 +11,12 @@ const tagsview = {
         name: view.name,
         path: view.path
       })
+      localStorage.setItem('tagsView', JSON.stringify(state.visitedviews))
     },
     DEL_VISITED_VIEWS: (state, view) => { // 关闭页签--删除路由数据的方法
       const _visitedviews = state.visitedviews.filter(item => item.path !== view.path)
       state.visitedviews = _visitedviews
+      localStorage.setItem('tagsView', JSON.stringify(state.visitedviews))
     }
   },
   actions: { // 调用这里去触发mutations，如何调用？在组件内使用this.$store.dispatch('action中对应名字', 参数)

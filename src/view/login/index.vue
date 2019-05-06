@@ -95,6 +95,9 @@ export default {
         }
       })
     }
+  },
+  mounted () {
+    localStorage.removeItem('tagsView')
   }
 }
 </script>
