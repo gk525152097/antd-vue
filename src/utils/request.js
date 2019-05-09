@@ -6,7 +6,7 @@ import { notification } from 'ant-design-vue'
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL: 'http://127.0.0.1:3000',
+  baseURL: process.env.BASE_URL,
   timeout: 50000 // 请求超时时间
 })
 
