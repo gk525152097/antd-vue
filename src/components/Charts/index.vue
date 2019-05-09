@@ -24,11 +24,14 @@ export default {
   },
   mounted () {
     const _this = this
-
     window.addEventListener('resize', () => _this.resize(), false)
     setTimeout(() => {
       _this.resize()
     }, 10)
+  },
+  beforeDestroy () {
+    const _this = this
+    window.removeEventListener('resize', () => _this.resize())
   }
 }
 </script>
