@@ -493,11 +493,11 @@ export default {
   }
 }
 .map {
-  height: 452px;
   text-align: center;
   .img {
-    height: 100%;
-    width: auto;
+    display: inline-block;
+    max-width: 100%;
+    max-height: 375px;
   }
 }
 .pie-item {
