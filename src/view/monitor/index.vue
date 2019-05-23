@@ -413,7 +413,7 @@ export default {
           detail: {
             // show:false,
             formatter: function (param) {
-              let level = '';
+              let level = ''
               if (param < 470) {
                 level = '较差'
               } else if (param < 590) {

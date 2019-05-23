@@ -1,5 +1,3 @@
-import store from "../index";
-
 const tagsview = {
   state: {
     visitedviews: [] // 存放所有浏览过的且不重复的路由数据

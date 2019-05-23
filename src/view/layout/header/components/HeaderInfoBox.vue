@@ -47,7 +47,7 @@ export default {
     },
     removeAll () {
       for (let i in this.infoList) {
-        this.$emit('removeItem', 0)
+        this.$emit('removeItem', i - i)
       }
     },
     addMore () {

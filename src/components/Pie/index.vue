@@ -46,8 +46,10 @@ export default {
     }
   },
   mounted () {
-    const _rootDate = this.rootDate.filter(item => item.visible = true)
-    const _rootDate_ = _rootDate.filter(item => item.itemStyle = {color: `rgb${this.getColor()}`})
+    // const _rootDate = this.rootDate.filter(item => item.visible = true) 箭头函数不应返回赋值
+    // const _rootDate_ = _rootDate.filter(item => item.itemStyle = {color: `rgb${this.getColor()}`}) 箭头函数不应返回赋值
+    const _rootDate = this.rootDate.forEach(function (item) { item.visible = true })
+    const _rootDate_ = _rootDate.filter(function (item) { item.itemStyle = {color: `rgb${this.getColor()}`} })
     this.rootDate = _rootDate_
   },
   data () {
@@ -94,7 +96,7 @@ export default {
   computed: {
     totalValue () {
       let _totalValue = 0
-      this.rootDate.filter(item => _totalValue += item.value)
+      this.rootDate.filter(function (item) { _totalValue += item.value })
       return _totalValue
     }
   },

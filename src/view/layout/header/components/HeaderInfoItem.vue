@@ -36,7 +36,7 @@ export default {
   },
   computed: {
     newTime () {
-      if (!!Number(this.time)) {
+      if (Number(this.time)) {
         return moment(new Date(Number(this.time)).toLocaleString()).fromNow()
       } else {
         return moment(this.time).fromNow()
