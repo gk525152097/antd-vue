@@ -4,15 +4,15 @@
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item>
         <a-input
-          v-decorator="[ 'email', {  rules: [ { type: 'email', message: '请输入正确的邮箱!', }, { required: true, message: '请输入邮箱!',}   ] }]"
-          placeholder="验证码"
+          v-decorator="[ 'username', { rules: [{ required: true, message: '请输入用户名!',}] }]"
+          placeholder="账号"
         >
-          <a-icon slot="prefix" type="mail" style="color:rgba(0,0,0,.25)"/>
+          <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>
         </a-input>
       </a-form-item>
       <a-form-item>
         <a-input
-          v-decorator="[  'password',  {rules: [{ required: true, message: '请输入密码!' }]} ]"
+          v-decorator="[  'password', { rules: [{ required: true, message: '请输入密码!' }]} ]"
           type="password" placeholder="密码"
         >
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
@@ -20,7 +20,7 @@
       </a-form-item>
       <a-form-item>
         <a-input
-          v-decorator="[  'passwordConfine',  {rules: [{ required: true, message: '请输入确认密码!' }]} ]"
+          v-decorator="[  'passwordConfine', { rules: [{ required: true, message: '请输入确认密码!' }]} ]"
           type="password" placeholder="确认密码"
         >
           <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)"/>
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import { register } from '@/api/user'
+import { message } from 'ant-design-vue'
 export default {
   name: 'index',
   data () {
@@ -71,6 +73,14 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log(values)
+          register(values)
+            .then((res) => {
+              console.log(res)
+              if (res.code === 200) {
+                message.success(res.message)
+              }
+              this.$router.push({path: '/login'})
+            })
         }
       })
     }

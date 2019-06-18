@@ -9,6 +9,15 @@ export function login (params) {
   })
 }
 
+// 注册
+export function register (params) {
+  return request({
+    url: '/user/register',
+    method: 'POST',
+    data: { ...params }
+  })
+}
+
 // 获取菜单
 export function getMenu (params) {
   return request({

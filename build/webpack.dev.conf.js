@@ -2,13 +2,14 @@
 const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('../config')
-const merge = require('webpack-merge')
+const merge = require('webpack-merge') // webpack 区分 生成环境 和 开发环境
 const path = require('path')
 const baseWebpackConfig = require('./webpack.base.conf')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin') // 拷贝插件 在webpack中拷贝文件或文件夹
+const HtmlWebpackPlugin = require('html-webpack-plugin') // html插件 在打包时生成index.html入口文件
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin') // 友好报错插件 识别webpack错误 并清理 聚合 排序
 const portfinder = require('portfinder')
+const defaultSettings = require('../src/defaultSettings')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -55,7 +56,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      favicon: defaultSettings.objectIcon
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
