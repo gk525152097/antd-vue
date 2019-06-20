@@ -4,7 +4,7 @@
     <a-form :form="form" @submit="handleSubmit">
       <a-form-item>
         <a-input
-          v-decorator="[ 'username', { rules: [{ required: true, message: '请输入用户名!',}] }]"
+          v-decorator="[ 'userName', { rules: [{ required: true, message: '请输入用户名!',}] }]"
           placeholder="账号"
         >
           <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)"/>

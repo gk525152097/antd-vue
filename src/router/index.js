@@ -24,20 +24,40 @@ export const constantRoutes = [
     children: [
       { path: '404', name: '404', component: () => import('@/view/404'), hidden: true }
     ]
+  },
+  {
+    path: '/menuManage',
+    name: '菜单管理',
+    icon: 'dashboard',
+    component: baseLayout,
+    children: [{
+      path: '/menuManage/menuManage',
+      name: 'menuManage',
+      component: () => import('@/view/menuManage/index')
+    }]
+  },
+  {
+    path: '/roleManage',
+    name: '角色管理',
+    icon: 'dashboard',
+    component: baseLayout,
+    children: [{
+      path: '/roleManage/roleManage',
+      name: 'roleManage',
+      component: () => import('@/view/roleManage/index')
+    }]
+  },
+  {
+    path: '/userManage',
+    name: '用户管理',
+    icon: 'dashboard',
+    component: baseLayout,
+    children: [{
+      path: '/userManage/userManage',
+      name: 'userManage',
+      component: () => import('@/view/userManage/index')
+    }]
   }
-// ,
-//   {
-//     path: '/',
-//     name: '首页',
-//     icon: 'dashboard',
-//     component: baseLayout,
-//     redirect: '/dashboard',
-//     children: [{
-//       path: 'dashboard',
-//       name: 'Dashboard',
-//       component: () => import('@/view/dashboard/index')
-//     }]
-//   },
 ]
 
 export default new Router({
