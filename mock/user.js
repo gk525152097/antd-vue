@@ -76,7 +76,7 @@ export default {
     const data = tokens[userName]
     if (data) {
       return {
-        code: 20000,
+        code: 200,
         data
       }
     }
@@ -87,13 +87,13 @@ export default {
   },
   logout: () => {
     return {
-      code: 20000,
+      code: 200,
       data: 'success'
     }
   },
   getMenu: res => {
     return {
-      code: 20000,
+      code: 200,
       data: roleMenu[JSON.parse(res.body).role]
     }
   }

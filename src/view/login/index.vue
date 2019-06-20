@@ -64,7 +64,6 @@
 </template>
 
 <script>
-import Message from '../../utils/message'
 export default {
   name: 'index',
   data () {
@@ -87,10 +86,7 @@ export default {
               this.$router.push({path: '/'})
             })
             .catch((err) => {
-              Message({
-                type: 'error',
-                message: `网络请求失败:${err}`
-              })
+              console.log(err)
             })
         }
       })
