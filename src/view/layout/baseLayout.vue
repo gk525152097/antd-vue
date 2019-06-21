@@ -65,7 +65,7 @@ export default {
       padding: 0;
     }
     .content {
-      padding: 0 24px;
+      padding: 0 12px;
     }
     .tags-view {
       margin: 16px 0;
