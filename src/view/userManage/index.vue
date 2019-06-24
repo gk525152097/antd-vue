@@ -7,7 +7,7 @@
       <ActionBox />
     </div>
    <div class="table-box">
-     <TableBox />
+     <TableBox :list="list" />
    </div>
   </div>
 </template>
@@ -26,7 +26,23 @@ export default {
   },
   data () {
     return {
-
+      list: [
+        {
+          key: '1',
+          name: 'admin1',
+          role: 'admin'
+        },
+        {
+          key: '1',
+          name: 'admin2',
+          role: 'admin'
+        },
+        {
+          key: '1',
+          name: 'admin3',
+          role: 'admin'
+        }
+      ]
     }
   },
   methods: {

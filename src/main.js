@@ -10,7 +10,7 @@ import 'ant-design-vue/dist/antd.css'
 
 import '@/assets/styles/global.scss'
 import '@/permission' // permission control
-import '../mock' // mock
+// import '../mock' // mock
 import defaultSettings from './defaultSettings'
 
 Vue.config.productionTip = defaultSettings.productionTip // 开启chrome浏览器插件功能

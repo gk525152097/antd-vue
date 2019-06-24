@@ -44,6 +44,11 @@ service.interceptors.response.use(
       }
       return Promise.reject('error') // eslint-disable-line
     } else {
+      // 不能放在这里 会导致所有请求 都会有请求提示
+      // Message({
+      //   type: 'success',
+      //   message: res.message
+      // })
       return response.data
     }
   },
