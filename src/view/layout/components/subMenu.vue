@@ -10,7 +10,7 @@
     </span>
     <template v-for="item in menuInfo.children">
       <a-menu-item
-        v-if="!item.children && !item.hidden"
+        v-if="!item.children || (item.children.length === 1 && item.children[0].hidden) && !item.hidden"
         :key="item.path"
       >
         <router-link :to="item.path">

@@ -30,10 +30,12 @@ export const constantRoutes = [
     name: '菜单管理',
     icon: 'dashboard',
     component: baseLayout,
+    redirect: '/menuManage/menuManage',
     children: [{
       path: '/menuManage/menuManage',
       name: 'menuManage',
-      component: () => import('@/view/menuManage/index')
+      component: () => import('@/view/menuManage/index'),
+      hidden: true
     }]
   },
   {
@@ -41,10 +43,12 @@ export const constantRoutes = [
     name: '角色管理',
     icon: 'dashboard',
     component: baseLayout,
+    redirect: '/roleManage/roleManage',
     children: [{
       path: '/roleManage/roleManage',
       name: 'roleManage',
-      component: () => import('@/view/roleManage/index')
+      component: () => import('@/view/roleManage/index'),
+      hidden: true
     }]
   },
   {
