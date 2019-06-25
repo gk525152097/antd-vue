@@ -80,11 +80,11 @@ export default {
               }
               this.visible = false
               this.confirmLoading = false
+              this.form.resetFields()
               _this.$store.dispatch('getRole')
             })
             .catch(err => {
               console.log(err)
-              this.visible = false
               this.confirmLoading = false
             })
         }

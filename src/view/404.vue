@@ -5,7 +5,7 @@
         <h1>404</h1>
         <p>抱歉，您访问的页面不存在，请确认页面路径是否正确！</p>
       </div>
-      <router-link to="/dashboard">
+      <router-link to="/analysis">
         <a-button>返回首页</a-button>
       </router-link>
     </div>
