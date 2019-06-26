@@ -9,10 +9,7 @@
         <a-col :xs="24" :sm="24" :md="18" :lg="19" :xl="20">
           <div class="work-area">
             <div class="menu-item">
-              <div class="btn-area">
-                <a-button type="primary">新增菜单</a-button>
-                <a-button>编辑菜单</a-button>
-              </div>
+              <ActionBox />
               <div class="menu-info">
                 <p><a-icon type="book" class="icon"/><span>菜单管理</span></p>
                 <p><span class="title">path: </span>/menuManage</p>
@@ -33,11 +30,13 @@
 <script>
 import TreeBox from './treeBox'
 import TableBox from './tableBox'
+import ActionBox from './actionBox'
 export default {
   name: 'index',
   components: {
     TreeBox,
-    TableBox
+    TableBox,
+    ActionBox
   },
   data () {
     return {
@@ -63,9 +62,6 @@ export default {
       padding: 12px;
       background: #fff;
       margin-bottom: 12px;
-      .btn-area {
-        margin-bottom: 12px;
-      }
       .menu-info {
         p {
           margin: 0;
