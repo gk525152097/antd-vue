@@ -116,51 +116,51 @@
 </template>
 
 <script>
-  export default {
-    name: 'addModal',
-    data () {
-      return {
-        form: this.$form.createForm(this),
-        visible: false,
-        confirmLoading: false,
-        labelCol: {
-          xs: { span: 24 },
-          sm: { span: 5 }
-        },
-        wrapperCol: {
-          xs: { span: 24 },
-          sm: { span: 17 }
-        }
-      }
-    },
-    methods: {
-      showModal () {
-        this.visible = true
+export default {
+  name: 'addModal',
+  data () {
+    return {
+      form: this.$form.createForm(this),
+      visible: false,
+      confirmLoading: false,
+      labelCol: {
+        xs: { span: 24 },
+        sm: { span: 5 }
       },
-      handleOk (e) {
-        const _this = this
-        e.preventDefault()
-
-        this.confirmLoading = true
-        this.form.validateFields((err, values) => {
-          if (!err) {
-            console.log(values)
-          }
-        })
-        setTimeout(() => {
-          this.visible = false
-          this.confirmLoading = false
-        }, 2000)
-      },
-      handleCancel (e) {
-        console.log('Clicked cancel button')
-        this.visible = false
-      },
-      handleChange (value) {
-        console.log(value)
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 17 }
       }
     }
+  },
+  methods: {
+    showModal () {
+      this.visible = true
+    },
+    handleOk (e) {
+      const _this = this
+      e.preventDefault()
+
+      this.confirmLoading = true
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log(values)
+        }
+      })
+      setTimeout(() => {
+        this.visible = false
+        this.confirmLoading = false
+      }, 2000)
+    },
+    handleCancel (e) {
+      console.log('Clicked cancel button')
+      this.visible = false
+    },
+    handleChange (value) {
+      console.log(value)
+    }
   }
+}
 </script>
 
 <style lang="scss" scoped>

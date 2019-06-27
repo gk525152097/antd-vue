@@ -1,12 +1,14 @@
 <template>
-  <a-tree
-    class="draggable-tree"
-    :defaultExpandedKeys="expandedKeys"
-    draggable
-    @dragenter="onDragEnter"
-    @drop="onDrop"
-    :treeData="gData"
-  />
+  <div>
+    <a-tree
+      class="draggable-tree"
+      :defaultExpandedKeys="expandedKeys"
+      draggable
+      @dragenter="onDragEnter"
+      @drop="onDrop"
+      :treeData="treeData"
+    />
+  </div>
 </template>
 
 <script>
@@ -22,7 +24,7 @@ const generateData = (_level, _preKey, _tns) => {
   const children = []
   for (let i = 0; i < x; i++) {
     const key = `${preKey}-${i}`
-    tns.push({ title: key, key })
+    tns.push({ title: key, key, ss: 'dfdf', xx: 'ds' })
     if (i < y) {
       children.push(key)
     }
@@ -37,6 +39,32 @@ const generateData = (_level, _preKey, _tns) => {
   })
 }
 generateData(z)
+
+function transform (list) {
+  list.filter(item => {
+    item.key = item.id
+    item.title = item.name
+  })
+  const group = {}
+  if (!list) return
+  list.forEach((item) => {
+    const parentId = item.parentId
+    if (!group.hasOwnProperty(parentId)) {
+      group[parentId] = []
+    }
+    group[parentId].push(item)
+  })
+
+  list.forEach(function (item) {
+    var id = item.id
+    if (group.hasOwnProperty(id)) {
+      item.children = group
+    }
+  })
+
+  return group['null']
+}
+
 export default {
   name: 'treeBox',
   data () {
@@ -44,6 +72,10 @@ export default {
       gData,
       expandedKeys: ['0-0', '0-0-0', '0-0-0-0']
     }
+  },
+  mounted () {
+    this.$store.dispatch('getMenuList')
+    console.log(gData)
   },
   methods: {
     onDragEnter (info) {
@@ -106,6 +138,11 @@ export default {
         }
       }
       this.gData = data
+    }
+  },
+  computed: {
+    treeData () {
+      return transform(this.$store.getters.menumanage.list)
     }
   }
 }
