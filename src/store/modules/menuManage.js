@@ -54,7 +54,6 @@ const menumanage = {
       return new Promise((resolve, reject) => {
         getMenuList()
           .then(results => {
-            console.log(results.data)
             commit('SET_MENU_LIST', results.data)
             resolve(results)
           })

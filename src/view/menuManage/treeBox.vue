@@ -4,9 +4,9 @@
       class="draggable-tree"
       :defaultExpandedKeys="expandedKeys"
       draggable
-      @dragenter="onDragEnter"
       @drop="onDrop"
-      :treeData="treeData"
+      @select="select"
+      :treeData="treeList"
     />
   </div>
 </template>
@@ -41,28 +41,31 @@ const generateData = (_level, _preKey, _tns) => {
 generateData(z)
 
 function transform (list) {
+  if (!list) return
   list.filter(item => {
     item.key = item.id
     item.title = item.name
   })
-  const group = {}
-  if (!list) return
-  list.forEach((item) => {
-    const parentId = item.parentId
-    if (!group.hasOwnProperty(parentId)) {
-      group[parentId] = []
+  let tree = []
+  for (let i = 0; i < list.length; i++) {
+    for (let j = i; j < list.length; j++) {
+      if (list[j].parentId === list[i].id) {
+        if (list[i].children === undefined) {
+          list[i].children = []
+        }
+        list[i].children.push(list[j])
+      } else if (list[j].id === list[i].parentId) {
+        if (list[j].children === undefined) {
+          list[j].children = []
+        }
+        list[j].children.push(list[i])
+      }
     }
-    group[parentId].push(item)
-  })
-
-  list.forEach(function (item) {
-    var id = item.id
-    if (group.hasOwnProperty(id)) {
-      item.children = group
+    if (list[i].parentId === null) {
+      tree.push(list[i])
     }
-  })
-
-  return group['null']
+  }
+  return tree
 }
 
 export default {
@@ -70,18 +73,17 @@ export default {
   data () {
     return {
       gData,
-      expandedKeys: ['0-0', '0-0-0', '0-0-0-0']
+      expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
+      treeList: [],
+      dropKey: 0
     }
   },
   mounted () {
     this.$store.dispatch('getMenuList')
-    console.log(gData)
   },
   methods: {
-    onDragEnter (info) {
+    select (info) {
       console.log(info)
-      // expandedKeys 需要受控时设置
-      // this.expandedKeys = info.expandedKeys
     },
     onDrop (info) {
       console.log(info)
@@ -99,17 +101,17 @@ export default {
           }
         })
       }
-      const data = [...this.gData]
-
+      const data = [...this.treeList]
       // Find dragObject
       let dragObj
-      loop(data, dragKey, (item, index, arr) => {
+      loop(data, dragKey, function (item, index, arr) {
         arr.splice(index, 1)
         dragObj = item
       })
       if (!info.dropToGap) {
         // Drop on the content
         loop(data, dropKey, (item) => {
+          this.dropKey = dropKey // 存切换到的位置
           item.children = item.children || []
           // where to insert 示例添加到尾部，可以是随意位置
           item.children.push(dragObj)
@@ -120,6 +122,7 @@ export default {
           dropPosition === 1 // On the bottom gap
       ) {
         loop(data, dropKey, (item) => {
+          this.dropKey = dropKey // 存切换到的位置
           item.children = item.children || []
           // where to insert 示例添加到尾部，可以是随意位置
           item.children.unshift(dragObj)
@@ -131,18 +134,24 @@ export default {
           ar = arr
           i = index
         })
+        console.log(ar)
         if (dropPosition === -1) {
           ar.splice(i, 0, dragObj)
         } else {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      this.gData = data
+      this.treeList = data
     }
   },
   computed: {
     treeData () {
       return transform(this.$store.getters.menumanage.list)
+    }
+  },
+  watch: {
+    treeData () {
+      this.treeList = this.treeData
     }
   }
 }
