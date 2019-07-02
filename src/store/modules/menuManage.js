@@ -1,4 +1,4 @@
-import { getMenuList, addMenu, removeMenu, updateMenu } from '@/api/menuManage'
+import { getMenuList, addMenu, removeMenu, updateMenu, handleChangeTree } from '@/api/menuManage'
 
 const menumanage = {
   state: {
@@ -59,6 +59,25 @@ const menumanage = {
           })
           .catch(err => {
             reject(err)
+          })
+      })
+    },
+    handleChangeTree ({commit}, data) {
+      return new Promise((resolve, reject) => {
+        handleChangeTree(data)
+          .then(results => {
+            console.log(results)
+            getMenuList()
+              .then(results => {
+                commit('SET_MENU_LIST', results.data)
+                resolve(results)
+              })
+              .catch(err => {
+                reject(err)
+              })
+          })
+          .catch(err => {
+            console.log(err)
           })
       })
     }

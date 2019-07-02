@@ -35,3 +35,12 @@ export function updateMenu (params) {
     data: { ...params }
   })
 }
+
+// 修改菜单树
+export function handleChangeTree (params) {
+  return request({
+    url: '/menu/changeTree',
+    method: 'POST',
+    data: { ...params }
+  })
+}

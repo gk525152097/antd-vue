@@ -1,81 +1,30 @@
 <template>
-  <div>
-    <a-tree
-      class="draggable-tree"
-      :defaultExpandedKeys="expandedKeys"
-      draggable
-      @drop="onDrop"
-      @select="select"
-      :treeData="treeList"
-    />
+  <div class="tree">
+    <a-spin class="tree-spin" :spinning="loading">
+      <a-tree
+        class="draggable-tree"
+        :defaultExpandedKeys="expandedKeys"
+        draggable
+        @drop="onDrop"
+        @select="select"
+        :treeData="treeList"
+      />
+    </a-spin>
   </div>
 </template>
 
 <script>
-const x = 3
-const y = 2
-const z = 1
-const gData = []
-
-const generateData = (_level, _preKey, _tns) => {
-  const preKey = _preKey || '0'
-  const tns = _tns || gData
-
-  const children = []
-  for (let i = 0; i < x; i++) {
-    const key = `${preKey}-${i}`
-    tns.push({ title: key, key, ss: 'dfdf', xx: 'ds' })
-    if (i < y) {
-      children.push(key)
-    }
-  }
-  if (_level < 0) {
-    return tns
-  }
-  const level = _level - 1
-  children.forEach((key, index) => {
-    tns[index].children = []
-    return generateData(level, key, tns[index].children)
-  })
-}
-generateData(z)
-
-function transform (list) {
-  if (!list) return
-  list.filter(item => {
-    item.key = item.id
-    item.title = item.name
-  })
-  let tree = []
-  for (let i = 0; i < list.length; i++) {
-    for (let j = i; j < list.length; j++) {
-      if (list[j].parentId === list[i].id) {
-        if (list[i].children === undefined) {
-          list[i].children = []
-        }
-        list[i].children.push(list[j])
-      } else if (list[j].id === list[i].parentId) {
-        if (list[j].children === undefined) {
-          list[j].children = []
-        }
-        list[j].children.push(list[i])
-      }
-    }
-    if (list[i].parentId === null) {
-      tree.push(list[i])
-    }
-  }
-  return tree
-}
-
+import transform from '@/utils/transformTree'
 export default {
   name: 'treeBox',
   data () {
     return {
-      gData,
       expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
       treeList: [],
-      dropKey: 0
+      dropKey: 0,
+      dropItem: {},
+      dropList: [],
+      loading: false
     }
   },
   mounted () {
@@ -87,6 +36,8 @@ export default {
     },
     onDrop (info) {
       console.log(info)
+      this.loading = true
+      this.dropItem = info.dragNode.dataRef
       const dropKey = info.node.eventKey
       const dragKey = info.dragNode.eventKey
       const dropPos = info.node.pos.split('-')
@@ -134,7 +85,7 @@ export default {
           ar = arr
           i = index
         })
-        console.log(ar)
+        this.dropList = ar // 修改排序
         if (dropPosition === -1) {
           ar.splice(i, 0, dragObj)
         } else {
@@ -142,6 +93,27 @@ export default {
         }
       }
       this.treeList = data
+      this.handleChangeTree()
+    },
+    handleChangeTree () {
+      this.loading = false
+      if (!this.dropList.length && this.dropKey === this.dropItem.parentId) {
+        this.loading = false
+      } else {
+        this.$store.dispatch('handleChangeTree', {
+          dropKey: this.dropKey,
+          dropItem: this.dropItem,
+          dropList: this.dropList
+        })
+      }
+
+      console.log(this.dropKey)
+      console.log(this.dropItem)
+      console.log(this.dropList)
+
+      this.dropKey = 0
+      this.dropItem = {}
+      this.dropList = []
     }
   },
   computed: {
@@ -152,7 +124,17 @@ export default {
   watch: {
     treeData () {
       this.treeList = this.treeData
+      this.loading = false
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .tree {
+    height: 100%;
+    .tree-spin {
+      height: 100%;
+    }
+  }
+</style>
