@@ -5,10 +5,12 @@
     <a-modal
       title="新增菜单"
       :visible="visible"
-      @ok="handleOk"
-      :confirmLoading="confirmLoading"
       @cancel="handleCancel"
     >
+      <template slot="footer">
+        <a-button :disabled="disabled" @click="handleCancel">取消</a-button>
+        <a-button type="primary" :loading="confirmLoading" @click="handleOk">确定</a-button>
+      </template>
       <a-form :form="form">
         <a-form-item
           :label-col="labelCol"
@@ -118,8 +120,14 @@
 </template>
 
 <script>
+import { message } from 'ant-design-vue'
 export default {
   name: 'addModal',
+  props: {
+    data: {
+      required: true
+    }
+  },
   data () {
     return {
       form: this.$form.createForm(this),
@@ -146,13 +154,25 @@ export default {
       this.confirmLoading = true
       this.form.validateFields((err, values) => {
         if (!err) {
-          console.log(values)
+          _this.$store.dispatch('addMenu', {
+            ...this.data,
+            ...values
+          })
+            .then(results => {
+              console.log(results)
+              message.success('新增成功!')
+            })
+            .catch(err => {
+              console.log(err)
+              message.error('新增失败!')
+            })
+            .finally(() => {
+              this.visible = false
+              this.confirmLoading = false
+              this.disabled = false
+            })
         }
       })
-      setTimeout(() => {
-        this.visible = false
-        this.confirmLoading = false
-      }, 2000)
     },
     handleCancel (e) {
       console.log('Clicked cancel button')

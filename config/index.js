@@ -7,9 +7,9 @@ const path = require('path')
 module.exports = {
   dev: {
     // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
+    assetsSubDirectory: 'static', // webpack资源存放文件加名称
+    assetsPublicPath: '/', // 资源根目录
+    proxyTable: { // 代理
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,
@@ -22,9 +22,9 @@ module.exports = {
     // Various Dev Server settings
     host: '0.0.0.0', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
-    errorOverlay: true,
-    notifyOnErrors: true,
+    autoOpenBrowser: false, //
+    errorOverlay: true, // 编译错误报错
+    notifyOnErrors: true, // 通知错误
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
     // Use Eslint Loader?
@@ -50,13 +50,13 @@ module.exports = {
     cssSourceMap: true
   },
 
-  build: {
+  build: { // build指令 => npm run build 应服务器需求 需要修改assetPublicPath修改为 ./
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'static', // 将webpack资源打包至 dist/static里
     assetsPublicPath: './',
 
     /**

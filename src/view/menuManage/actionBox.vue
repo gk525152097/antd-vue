@@ -1,6 +1,6 @@
 <template>
   <div class="btn-area">
-    <AddModal class="btn" />
+    <AddModal :data="data" class="btn" />
     <EditModal :data="data" class="btn" />
   </div>
 </template>

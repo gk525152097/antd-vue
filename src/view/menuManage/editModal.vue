@@ -5,7 +5,6 @@
     <a-modal
       title="编辑菜单"
       :visible="visible"
-      :confirmLoading="confirmLoading"
       @cancel="handleCancel"
     >
       <template slot="footer">
