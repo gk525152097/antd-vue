@@ -1,15 +1,17 @@
 <template>
-  <a-table :columns="columns" :dataSource="data" :pagination="false">
+  <a-spin :spinning="loading">
+    <a-table :columns="columns" :dataSource="data.list" :pagination="false">
     <span slot="icon" slot-scope="text">
       <a-icon type="smile-o"/>
     </span>
-    <span slot="action" slot-scope="text, record">
+      <span slot="action" slot-scope="text, record">
       <a-popconfirm okText="确定" cancelText="取消" @confirm="confirm(text)">
           <span slot="title">确定删除{{text.name}}?</span>
           <a>删除</a>
         </a-popconfirm>
     </span>
-  </a-table>
+    </a-table>
+  </a-spin>
 </template>
 <script>
 const columns = [
@@ -70,7 +72,34 @@ export default {
   data () {
     return {
       data,
-      columns
+      columns,
+      loading: false
+    }
+  },
+  mounted () {
+    this.getMenuList()
+  },
+  methods: {
+    getMenuList (id) {
+      this.loading = true
+      this.$store.dispatch('getMenuList', {
+        id: id || 0,
+        page: 0,
+        pageSize: 10
+      })
+        .then(() => {
+          this.loading = false
+        })
+    }
+  },
+  computed: {
+    list () {
+      return this.$store.getters.menumanage.list
+    }
+  },
+  watch: {
+    list () {
+      this.data = this.list
     }
   }
 }

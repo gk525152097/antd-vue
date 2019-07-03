@@ -1,7 +1,7 @@
 <template>
   <div class="btn-area">
     <AddModal class="btn" />
-    <EditModal class="btn" />
+    <EditModal :data="data" class="btn" />
   </div>
 </template>
 
@@ -13,6 +13,21 @@ export default {
   components: {
     EditModal,
     AddModal
+  },
+  data () {
+    return {
+      data: {}
+    }
+  },
+  computed: {
+    menuInfo () {
+      return this.$store.getters.menumanage.info
+    }
+  },
+  watch: {
+    menuInfo () {
+      this.data = this.menuInfo
+    }
   }
 }
 </script>

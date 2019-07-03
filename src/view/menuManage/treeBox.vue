@@ -14,27 +14,48 @@
 </template>
 
 <script>
+import { message } from 'ant-design-vue'
 import transform from '@/utils/transformTree'
 export default {
   name: 'treeBox',
   data () {
     return {
-      expandedKeys: ['0-0', '0-0-0', '0-0-0-0'],
       treeList: [],
       dropKey: 0,
+      dropRank: 0,
       dropItem: {},
       dropList: [],
       loading: false
     }
   },
   mounted () {
-    this.$store.dispatch('getMenuList')
+    this.loading = true
+    this.$store.dispatch('getMenuTree')
+      .finally(() => {
+        this.loading = false
+      })
   },
   methods: {
     select (info) {
+      // 获取当前节点信息
       console.log(info)
+      this.$emit('handleLoading')
+      let id = info[0]
+      if (id) {
+        this.$store.dispatch('handleMenuInfo', {id: id})
+          .finally(() => {
+            this.$emit('handleLoading')
+          })
+        this.$emit('handleMenuList', id)
+      } else {
+        this.$store.dispatch('handleMenuInfo')
+          .finally(() => {
+            this.$emit('handleLoading')
+          })
+      }
     },
     onDrop (info) {
+      // 拖动节点信息
       console.log(info)
       this.loading = true
       this.dropItem = info.dragNode.dataRef
@@ -66,6 +87,7 @@ export default {
           item.children = item.children || []
           // where to insert 示例添加到尾部，可以是随意位置
           item.children.push(dragObj)
+          this.dropRank = item.children.length // 获取切换到节点的children长度 以方便修改rank
         })
       } else if (
         (info.node.children || []).length > 0 && // Has children
@@ -92,24 +114,47 @@ export default {
           ar.splice(i + 1, 0, dragObj)
         }
       }
-      this.treeList = data
       this.handleChangeTree()
     },
     handleChangeTree () {
-      this.loading = false
-      if (!this.dropList.length && this.dropKey === this.dropItem.parentId) {
+      // 修改树结构
+      console.log(this.dropKey)
+      console.log(this.dropItem)
+      console.log(this.dropList)
+
+      let root = false
+      if (this.dropList.length) {
+        this.dropList.forEach(function (item) {
+          item.key === 0 ? root = true : null // eslint-disable-line
+        })
+      }
+
+      if (root) {
+        message.error('根目录不允许存在同级菜单！')
+        this.$store.dispatch('getMenuList')
+          .finally(() => {
+            this.loading = false
+          })
+      } else if (!this.dropList.length && this.dropKey === this.dropItem.parentId) {
         this.loading = false
       } else {
         this.$store.dispatch('handleChangeTree', {
           dropKey: this.dropKey,
+          dropRank: this.dropRank,
           dropItem: this.dropItem,
           dropList: this.dropList
         })
+          .then(results => {
+            console.log(results)
+            this.$store.dispatch('getMenuList')
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => {
+            this.loading = false
+          })
       }
-
-      console.log(this.dropKey)
-      console.log(this.dropItem)
-      console.log(this.dropList)
 
       this.dropKey = 0
       this.dropItem = {}
@@ -118,7 +163,7 @@ export default {
   },
   computed: {
     treeData () {
-      return transform(this.$store.getters.menumanage.list)
+      return transform(this.$store.getters.menumanage.tree)
     }
   },
   watch: {

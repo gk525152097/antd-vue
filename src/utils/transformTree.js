@@ -19,6 +19,16 @@ function transform (list) {
         list[j].children.push(list[i])
       }
     }
+
+    if (list[i].children && list[i].children.length) {
+      let newArray = []
+      newArray.length = list[i].children.length
+      list[i].children.map(function (item) {
+        newArray[item.rank] = item
+      })
+      list[i].children = newArray
+    }
+
     if (list[i].parentId === null) {
       tree.push(list[i])
     }

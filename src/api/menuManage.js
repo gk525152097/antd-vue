@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 获取角色列表
+// 获取菜单列表
 export function getMenuList (params) {
   return request({
     url: '/menu/list',
@@ -40,6 +40,15 @@ export function updateMenu (params) {
 export function handleChangeTree (params) {
   return request({
     url: '/menu/changeTree',
+    method: 'POST',
+    data: { ...params }
+  })
+}
+
+// 获取菜单信息
+export function handleMenuInfo (params) {
+  return request({
+    url: '/menu/menuInfo',
     method: 'POST',
     data: { ...params }
   })

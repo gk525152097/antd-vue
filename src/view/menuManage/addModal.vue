@@ -22,6 +22,8 @@
               'icon',
             ]"
           >
+            <a-select-option value="dashboard"><a-icon type="dashboard" /></a-select-option>
+            <a-select-option value="plus-square"><a-icon type="plus-square" /></a-select-option>
             <a-select-option value="smile-o"><a-icon type="smile-o" /></a-select-option>
             <a-select-option value="area-chart"><a-icon type="area-chart" /></a-select-option>
             <a-select-option value="pie-chart"><a-icon type="pie-chart" /></a-select-option>

@@ -5,23 +5,29 @@
     <a-modal
       title="编辑菜单"
       :visible="visible"
-      @ok="handleOk"
       :confirmLoading="confirmLoading"
       @cancel="handleCancel"
     >
+      <template slot="footer">
+        <a-button :disabled="disabled" @click="handleCancel">取消</a-button>
+        <a-button type="primary" :loading="confirmLoading" @click="handleOk">确定</a-button>
+      </template>
       <a-form :form="form">
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="菜单图标"
+          label="icon"
         >
           <a-select
             style="width: 100%"
             placeholder="请选择！"
             v-decorator="[
               'icon',
+              {initialValue: data.icon}
             ]"
           >
+            <a-select-option value="dashboard"><a-icon type="dashboard" /></a-select-option>
+            <a-select-option value="plus-square"><a-icon type="plus-square" /></a-select-option>
             <a-select-option value="smile-o"><a-icon type="smile-o" /></a-select-option>
             <a-select-option value="area-chart"><a-icon type="area-chart" /></a-select-option>
             <a-select-option value="pie-chart"><a-icon type="pie-chart" /></a-select-option>
@@ -42,12 +48,13 @@
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="菜单名称"
+          label="name"
         >
           <a-input
             placeholder="请输入！"
             v-decorator="[
               'name',
+              {initialValue: data.name},
               {rules: [{ required: true, message: '请输入' }]}
             ]"
           />
@@ -56,12 +63,13 @@
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="显示路径"
+          label="path"
         >
           <a-input
             placeholder="请输入！"
             v-decorator="[
               'path',
+              {initialValue: data.path},
               {rules: [{ required: true, message: '请输入' }]}
             ]"
           />
@@ -70,13 +78,14 @@
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="文件路径"
+          label="component"
         >
           <a-input
             placeholder="请输入！"
             v-decorator="[
               'component',
-              {rules: [{ required: true, message: '请输入' }]}
+              {initialValue: data.component},
+              {rules: [{ required: true, message: '请输入' }]},
             ]"
           />
         </a-form-item>
@@ -84,12 +93,13 @@
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="转发地址"
+          label="redirect"
         >
           <a-input
             placeholder="请输入！"
             v-decorator="[
               'redirect',
+              {initialValue: data.redirect}
             ]"
           />
         </a-form-item>
@@ -97,13 +107,13 @@
         <a-form-item
           :label-col="labelCol"
           :wrapper-col="wrapperCol"
-          label="是否隐藏"
+          label="hidden"
         >
           <a-radio-group
             buttonStyle="solid"
             v-decorator="[
               'hidden',
-              { initialValue: '0' }
+              { initialValue: data.hidden }
             ]"
           >
             <a-radio-button value="0">否</a-radio-button>
@@ -116,13 +126,20 @@
 </template>
 
 <script>
+import { message } from 'ant-design-vue'
 export default {
   name: 'addModal',
+  props: {
+    data: {
+      required: true
+    }
+  },
   data () {
     return {
       form: this.$form.createForm(this),
       visible: false,
       confirmLoading: false,
+      disabled: false,
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }
@@ -135,22 +152,40 @@ export default {
   },
   methods: {
     showModal () {
-      this.visible = true
+      if (!Object.keys(this.data).length) {
+        message.warn('请选择节点')
+      } else {
+        this.visible = true
+      }
     },
     handleOk (e) {
       const _this = this
       e.preventDefault()
 
       this.confirmLoading = true
+      this.disabled = true
       this.form.validateFields((err, values) => {
         if (!err) {
           console.log(values)
+          _this.$store.dispatch('updateMenu', {
+            ...this.data,
+            ...values
+          })
+            .then(results => {
+              console.log(results)
+              message.success('修改成功!')
+            })
+            .catch(err => {
+              console.log(err)
+              message.error('修改失败!')
+            })
+            .finally(() => {
+              this.visible = false
+              this.confirmLoading = false
+              this.disabled = false
+            })
         }
       })
-      setTimeout(() => {
-        this.visible = false
-        this.confirmLoading = false
-      }, 2000)
     },
     handleCancel (e) {
       console.log('Clicked cancel button')
