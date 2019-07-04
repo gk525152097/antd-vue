@@ -52,6 +52,19 @@ export const constantRoutes = [
     }]
   },
   {
+    path: '/authorityManage',
+    name: '权限管理',
+    icon: 'dashboard',
+    component: baseLayout,
+    redirect: '/authorityManage/authorityManage',
+    children: [{
+      path: '/authorityManage/authorityManage',
+      name: 'userManage',
+      component: () => import('@/view/authorityManage/index'),
+      hidden: true
+    }]
+  },
+  {
     path: '/userManage',
     name: '用户管理',
     icon: 'dashboard',

@@ -128,11 +128,6 @@
 import { message } from 'ant-design-vue'
 export default {
   name: 'addModal',
-  props: {
-    data: {
-      required: true
-    }
-  },
   data () {
     return {
       form: this.$form.createForm(this),
@@ -149,10 +144,15 @@ export default {
       }
     }
   },
+  computed: {
+    data () {
+      return this.$store.getters.menumanage.info
+    }
+  },
   methods: {
     showModal () {
-      if (!Object.keys(this.data).length) {
-        message.warn('请选择节点')
+      if (!this.$store.getters.menumanage.info.id) {
+        message.warn('根目录不允许修改！')
       } else {
         this.visible = true
       }
@@ -173,6 +173,8 @@ export default {
             .then(results => {
               console.log(results)
               message.success('修改成功!')
+              this.form.resetFields()
+              this.$store.dispatch('handleMenuInfo', this.data)
             })
             .catch(err => {
               console.log(err)
@@ -189,9 +191,6 @@ export default {
     handleCancel (e) {
       console.log('Clicked cancel button')
       this.visible = false
-    },
-    handleChange (value) {
-      console.log(value)
     }
   }
 }

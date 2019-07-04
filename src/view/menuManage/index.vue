@@ -3,7 +3,7 @@
       <a-row :gutter="12" style="display: flex; align-items: stretch">
         <a-col :xs="24" :sm="24" :md="6" :lg="5" :xl="4">
           <div class="tree">
-            <TreeBox @handleLoading="handleLoading" @handleMenuList="handleMenuList" />
+            <TreeBox />
           </div>
         </a-col>
         <a-col :xs="24" :sm="24" :md="18" :lg="19" :xl="20">
@@ -42,21 +42,17 @@ export default {
   },
   data () {
     return {
-      loading: false,
       info: this.$store.getters.menumanage.info
     }
   },
   methods: {
-    handleLoading () {
-      this.loading = !this.loading
-    },
-    handleMenuList (id) {
-      this.$refs.menuTable.getMenuList(id)
-    }
   },
   computed: {
     menuInfo () {
       return this.$store.getters.menumanage.info
+    },
+    loading () {
+      return this.$store.getters.menumanage.infoLoading
     }
   },
   watch: {

@@ -1,7 +1,7 @@
 <template>
   <div class="btn-area">
-    <AddModal :data="data" class="btn" />
-    <EditModal :data="data" class="btn" />
+    <AddModal class="btn" />
+    <EditModal class="btn" />
   </div>
 </template>
 
@@ -16,18 +16,11 @@ export default {
   },
   data () {
     return {
-      data: {}
     }
   },
   computed: {
-    menuInfo () {
-      return this.$store.getters.menumanage.info
-    }
   },
   watch: {
-    menuInfo () {
-      this.data = this.menuInfo
-    }
   }
 }
 </script>

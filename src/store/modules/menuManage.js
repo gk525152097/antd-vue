@@ -9,21 +9,26 @@ import {
 
 const menumanage = {
   state: {
-    tree: [
+    tree: [ // tree
       {title: 'root', key: 0}
     ],
-    list: [
+    list: [ // table
       {title: 'root', key: 0}
     ],
-    info: {
-      id: 0,
+    info: { // info
+      id: 1,
       icon: 'plus-square',
       name: '根目录',
       path: '/',
       component: '/',
       redirect: null,
       hidden: 0
-    }
+    },
+    treeLoading: false, // tree loading
+    infoLoading: false, // info loading
+    tableLoading: false, // table loading
+    page: 0,
+    pageSize: 10
   },
 
   mutations: {
@@ -35,6 +40,15 @@ const menumanage = {
     },
     SET_MENU_INFO: (state, data) => {
       state.info = data
+    },
+    HANDLE_INFO_LOADING: (state) => {
+      state.infoLoading = !state.infoLoading
+    },
+    HANDLE_TREE_LOADING: (state) => {
+      state.treeLoading = !state.treeLoading
+    },
+    HANDLE_TABLE_LOADING: (state) => {
+      state.tableLoading = !state.tableLoading
     }
   },
 
@@ -134,11 +148,21 @@ const menumanage = {
             path: '/',
             component: '/',
             redirect: null,
-            hidden: 0
+            hidden: 0,
+            id: 1
           })
           resolve('success')
         })
       }
+    },
+    handleInfoLoading ({commit}) {
+      commit('HANDLE_INFO_LOADING')
+    },
+    handleTreeLoading ({commit}) {
+      commit('HANDLE_TREE_LOADING')
+    },
+    handleTableLoading ({commit}) {
+      commit('HANDLE_TABLE_LOADING')
     }
   }
 }

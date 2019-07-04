@@ -12,7 +12,7 @@
         />
       </template>
       <span slot="icon" slot-scope="text">
-        <a-icon type="smile-o"/>
+        <a-icon :type="text"/>
       </span>
         <span slot="action" slot-scope="text, record">
         <a-popconfirm okText="确定" cancelText="取消" @confirm="removeMenu(text)">
@@ -85,7 +85,6 @@ export default {
       menuItem: {},
       data,
       columns,
-      loading: false,
       page: 0,
       pageSize: 10
     }
@@ -95,18 +94,18 @@ export default {
   },
   methods: {
     getMenuList (id) {
-      this.loading = true
+      this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('getMenuList', {
-        id: id || 0,
+        id: id || 1,
         page: this.page,
         pageSize: this.pageSize
       })
         .then(() => {
-          this.loading = false
+          this.$store.dispatch('handleTableLoading')
         })
     },
     removeMenu (data) {
-      this.loading = true
+      this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('removeMenu', data)
         .then(results => {
           console.log(results)
@@ -116,18 +115,19 @@ export default {
             page: this.page,
             pageSize: this.pageSize
           })
+          this.$store.dispatch('handleTreeLoading')
+          this.$store.dispatch('getMenuTree')
         })
         .catch(err => {
           console.log(err)
-          message.error('删除失败！')
         })
         .finally(() => {
-          this.loading = false
+          this.$store.dispatch('handleTableLoading')
         })
     },
     onShowSizeChange (current, pageSize) {
       console.log(current, pageSize)
-      this.loading = true
+      this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('getMenuList', {
         id: this.menuItem.id,
         page: this.page,
@@ -140,7 +140,7 @@ export default {
           console.log(err)
         })
         .finally(() => {
-          this.loading = false
+          this.$store.dispatch('handleTableLoading')
         })
     }
   },
@@ -150,6 +150,9 @@ export default {
     },
     _menuItem () {
       return this.$store.getters.menumanage.info
+    },
+    loading () {
+      return this.$store.getters.menumanage.tableLoading
     }
   },
   watch: {

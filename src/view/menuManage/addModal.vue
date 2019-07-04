@@ -123,16 +123,12 @@
 import { message } from 'ant-design-vue'
 export default {
   name: 'addModal',
-  props: {
-    data: {
-      required: true
-    }
-  },
   data () {
     return {
       form: this.$form.createForm(this),
       visible: false,
       confirmLoading: false,
+      disabled: false,
       labelCol: {
         xs: { span: 24 },
         sm: { span: 5 }
@@ -141,6 +137,11 @@ export default {
         xs: { span: 24 },
         sm: { span: 17 }
       }
+    }
+  },
+  computed: {
+    data () {
+      return this.$store.getters.menumanage.info
     }
   },
   methods: {
@@ -152,15 +153,28 @@ export default {
       e.preventDefault()
 
       this.confirmLoading = true
+      this.disabled = true
       this.form.validateFields((err, values) => {
         if (!err) {
           _this.$store.dispatch('addMenu', {
-            ...this.data,
-            ...values
+            ...values,
+            parentId: this.data.id
           })
             .then(results => {
               console.log(results)
               message.success('新增成功!')
+              this.form.resetFields()
+              this.$store.dispatch('getMenuList', {
+                id: this.data.id,
+                page: this.$store.getters.menumanage.page,
+                pageSize: this.$store.getters.menumanage.pageSize
+              })
+              this.$store.dispatch('handleTreeLoading')
+              this.$store.dispatch('getMenuTree')
+                .then().catch()
+                .finally(() => {
+                  this.$store.dispathc('handleTreeLoading')
+                })
             })
             .catch(err => {
               console.log(err)
@@ -177,9 +191,6 @@ export default {
     handleCancel (e) {
       console.log('Clicked cancel button')
       this.visible = false
-    },
-    handleChange (value) {
-      console.log(value)
     }
   }
 }

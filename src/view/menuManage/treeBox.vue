@@ -3,7 +3,6 @@
     <a-spin class="tree-spin" :spinning="loading">
       <a-tree
         class="draggable-tree"
-        :defaultExpandedKeys="expandedKeys"
         draggable
         @drop="onDrop"
         @select="select"
@@ -21,43 +20,49 @@ export default {
   data () {
     return {
       treeList: [],
-      dropKey: 0,
-      dropRank: 0,
-      dropItem: {},
-      dropList: [],
-      loading: false
+      dropKey: 0, // 上级节点
+      dropRank: 0, // 排序
+      dropItem: {}, // 当前项
+      dropList: [] // 插入上级节点子节点list
     }
   },
   mounted () {
-    this.loading = true
+    this.$store.dispatch('handleTreeLoading')
     this.$store.dispatch('getMenuTree')
+
+    // 默认请求根目录信息
+    this.$store.dispatch('handleInfoLoading')
+    this.$store.dispatch('handleMenuInfo', {id: 1})
+      .then()
+      .catch()
       .finally(() => {
-        this.loading = false
+        this.$store.dispatch('handleInfoLoading')
       })
   },
   methods: {
-    select (info) {
+    select (selectedKeys, e) {
       // 获取当前节点信息
-      console.log(info)
-      this.$emit('handleLoading')
-      let id = info[0]
-      if (id) {
+      console.log(e.node.dataRef.id)
+      let id = e.node.dataRef.id
+      if (id !== this.$store.getters.menumanage.info.id) {
+        this.$store.dispatch('handleInfoLoading')
         this.$store.dispatch('handleMenuInfo', {id: id})
+          .then()
+          .catch()
           .finally(() => {
-            this.$emit('handleLoading')
+            this.$store.dispatch('handleInfoLoading')
           })
-        this.$emit('handleMenuList', id)
-      } else {
-        this.$store.dispatch('handleMenuInfo')
-          .finally(() => {
-            this.$emit('handleLoading')
-          })
+        this.$store.dispatch('getMenuList', {
+          id: id,
+          page: this.$store.getters.menumanage.page,
+          pageSize: this.$store.getters.menumanage.pageSize
+        })
       }
     },
     onDrop (info) {
       // 拖动节点信息
       console.log(info)
-      this.loading = true
+      this.$store.dispatch('handleTreeLoading')
       this.dropItem = info.dragNode.dataRef
       const dropKey = info.node.eventKey
       const dragKey = info.dragNode.eventKey
@@ -131,12 +136,13 @@ export default {
 
       if (root) {
         message.error('根目录不允许存在同级菜单！')
+        this.$store.dispatch('handleTreeLoading')
         this.$store.dispatch('getMenuList')
           .finally(() => {
-            this.loading = false
+            this.$store.dispatch('handleTreeLoading')
           })
       } else if (!this.dropList.length && this.dropKey === this.dropItem.parentId) {
-        this.loading = false
+        this.$store.dispatch('handleTreeLoading')
       } else {
         this.$store.dispatch('handleChangeTree', {
           dropKey: this.dropKey,
@@ -152,7 +158,7 @@ export default {
             console.log(err)
           })
           .finally(() => {
-            this.loading = false
+            this.$store.dispatch('handleTreeLoading')
           })
       }
 
@@ -162,14 +168,17 @@ export default {
     }
   },
   computed: {
-    treeData () {
+    _treeData () {
       return transform(this.$store.getters.menumanage.tree)
+    },
+    loading () {
+      return this.$store.getters.menumanage.treeLoading
     }
   },
   watch: {
-    treeData () {
-      this.treeList = this.treeData
-      this.loading = false
+    _treeData () {
+      this.treeList = this._treeData
+      this.$store.dispatch('handleTreeLoading')
     }
   }
 }
