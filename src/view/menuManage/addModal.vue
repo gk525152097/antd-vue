@@ -156,6 +156,7 @@ export default {
       this.disabled = true
       this.form.validateFields((err, values) => {
         if (!err) {
+          values.hidden = parseInt(values.hidden)
           _this.$store.dispatch('addMenu', {
             ...values,
             parentId: this.data.id

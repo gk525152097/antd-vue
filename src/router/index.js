@@ -24,57 +24,57 @@ export const constantRoutes = [
     children: [
       { path: '404', name: '404', component: () => import('@/view/404'), hidden: true }
     ]
-  },
-  {
-    path: '/menuManage',
-    name: '菜单管理',
-    icon: 'dashboard',
-    component: baseLayout,
-    redirect: '/menuManage/menuManage',
-    children: [{
-      path: '/menuManage/menuManage',
-      name: 'menuManage',
-      component: () => import('@/view/menuManage/index'),
-      hidden: true
-    }]
-  },
-  {
-    path: '/roleManage',
-    name: '角色管理',
-    icon: 'dashboard',
-    component: baseLayout,
-    redirect: '/roleManage/roleManage',
-    children: [{
-      path: '/roleManage/roleManage',
-      name: 'roleManage',
-      component: () => import('@/view/roleManage/index'),
-      hidden: true
-    }]
-  },
-  {
-    path: '/authorityManage',
-    name: '权限管理',
-    icon: 'dashboard',
-    component: baseLayout,
-    redirect: '/authorityManage/authorityManage',
-    children: [{
-      path: '/authorityManage/authorityManage',
-      name: 'userManage',
-      component: () => import('@/view/authorityManage/index'),
-      hidden: true
-    }]
-  },
-  {
-    path: '/userManage',
-    name: '用户管理',
-    icon: 'dashboard',
-    component: baseLayout,
-    children: [{
-      path: '/userManage/userManage',
-      name: 'userManage',
-      component: () => import('@/view/userManage/index')
-    }]
   }
+  // {
+  //   path: '/menuManage',
+  //   name: '菜单管理',
+  //   icon: 'dashboard',
+  //   component: baseLayout,
+  //   redirect: '/menuManage/menuManage',
+  //   children: [{
+  //     path: '/menuManage/menuManage',
+  //     name: 'menuManage',
+  //     component: () => import('@/view/menuManage/index'),
+  //     hidden: true
+  //   }]
+  // },
+  // {
+  //   path: '/roleManage',
+  //   name: '角色管理',
+  //   icon: 'dashboard',
+  //   component: baseLayout,
+  //   redirect: '/roleManage/roleManage',
+  //   children: [{
+  //     path: '/roleManage/roleManage',
+  //     name: 'roleManage',
+  //     component: () => import('@/view/roleManage/index'),
+  //     hidden: true
+  //   }]
+  // },
+  // {
+  //   path: '/authorityManage',
+  //   name: '权限管理',
+  //   icon: 'dashboard',
+  //   component: baseLayout,
+  //   redirect: '/authorityManage/authorityManage',
+  //   children: [{
+  //     path: '/authorityManage/authorityManage',
+  //     name: 'userManage',
+  //     component: () => import('@/view/authorityManage/index'),
+  //     hidden: true
+  //   }]
+  // },
+  // {
+  //   path: '/userManage',
+  //   name: '用户管理',
+  //   icon: 'dashboard',
+  //   component: baseLayout,
+  //   children: [{
+  //     path: '/userManage/userManage',
+  //     name: 'userManage',
+  //     component: () => import('@/view/userManage/index')
+  //   }]
+  // }
 ]
 
 export default new Router({
