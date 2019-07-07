@@ -9,6 +9,9 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static', // webpack资源存放文件加名称
     assetsPublicPath: '/', // 资源根目录
+    /**
+     * 额外说明 如果需要做跨域配置 需要在请求地址里使用全量地址 即 http:localhost:8080/....
+     */
     proxyTable: { // 代理
       '/api': {
         target: 'http://localhost:3000',

@@ -10,17 +10,14 @@ import 'ant-design-vue/dist/antd.css'
 
 import '@/assets/styles/global.scss'
 import '@/permission' // permission control
-// import '../mock' // mock
 import defaultSettings from './defaultSettings'
+
+import '../mock' // 不存在动态配置的问题 使用dev模式 需要修改BASE_URL 使用“”空地址会直接请求mock 使用本地IP则会请求实际地址
 
 Vue.config.productionTip = defaultSettings.productionTip // 开启chrome浏览器插件功能
 Vue.config.devtools = true
 Vue.prototype.$axios = axios
 Vue.use(Antd)
-
-// Date.prototype.toLocaleString = () => { // eslint-diabled-line
-//   return `${this.getFullYear()}/${(Array(2).join(0) + (this.getMonth() + 1)).slice(-2)}/${(Array(2).join(0) + this.getDate()).slice(-2)} ${(Array(2).join(0) + this.getHours()).slice(-2)}:${(Array(2).join(0) + this.getMinutes()).slice(-2)}:${(Array(2).join(0) + this.getSeconds()).slice(-2)}`
-// }
 
 /* eslint-disable no-new */
 new Vue({

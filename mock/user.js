@@ -81,7 +81,7 @@ export default {
       }
     }
     return {
-      code: 60204,
+      code: 500,
       message: 'Account and password are incorrect.'
     }
   },
