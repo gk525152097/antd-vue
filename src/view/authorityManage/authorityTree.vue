@@ -4,83 +4,49 @@
       <a-tree
         class="tree"
         checkable
-        @expand="onExpand"
-        :expandedKeys="expandedKeys"
-        :autoExpandParent="autoExpandParent"
         v-model="checkedKeys"
+        :autoExpandParent="autoExpandParent"
+        :treeData="_treeData"
         @select="onSelect"
-        :selectedKeys="selectedKeys"
-        :treeData="treeData"
       />
     </div>
 </template>
 
 <script>
-const treeData = [{
-  title: '0-0',
-  key: '0-0',
-  children: [{
-    title: '0-0-0',
-    key: '0-0-0',
-    children: [
-      { title: '0-0-0-0', key: '0-0-0-0' },
-      { title: '0-0-0-1', key: '0-0-0-1' },
-      { title: '0-0-0-2', key: '0-0-0-2' }
-    ]
-  }, {
-    title: '0-0-1',
-    key: '0-0-1',
-    children: [
-      { title: '0-0-1-0', key: '0-0-1-0' },
-      { title: '0-0-1-1', key: '0-0-1-1' },
-      { title: '0-0-1-2', key: '0-0-1-2' }
-    ]
-  }, {
-    title: '0-0-2',
-    key: '0-0-2'
-  }]
-}, {
-  title: '0-1',
-  key: '0-1',
-  children: [
-    { title: '0-1-0-0', key: '0-1-0-0' },
-    { title: '0-1-0-1', key: '0-1-0-1' },
-    { title: '0-1-0-2', key: '0-1-0-2' }
-  ]
-}, {
-  title: '0-2',
-  key: '0-2'
-}]
-
+import transform from '@/utils/transformTree'
 export default {
   name: 'authorityTree',
+  mounted () {
+    this.$store.dispatch('getMenuTree')
+      .then(res => {
+        console.log(res)
+        this.checkedKeys = [14] // 需要先请求到树 才能动态 选中节点
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
   data: () => ({
-    expandedKeys: ['0-0-0', '0-0-1'],
     autoExpandParent: true,
-    checkedKeys: ['0-0-0'],
-    selectedKeys: [],
-    treeData
+    checkedKeys: []
   }),
+  computed: {
+    _treeData () {
+      return transform(this.$store.getters.authoritymanage.menuTree)
+    }
+  },
   watch: {
     checkedKeys (val) {
       console.log('onCheck', val)
     }
   },
   methods: {
-    onExpand (expandedKeys) {
-      console.log('onExpand', expandedKeys)
-      // if not set autoExpandParent to false, if children expanded, parent can not collapse.
-      // or, you can remove all expanded children keys.
-      this.expandedKeys = expandedKeys
-      this.autoExpandParent = false
-    },
     onCheck (checkedKeys) {
       console.log('onCheck', checkedKeys)
       this.checkedKeys = checkedKeys
     },
     onSelect (selectedKeys, info) {
       console.log('onSelect', info)
-      this.selectedKeys = selectedKeys
     }
   }
 }

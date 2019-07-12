@@ -35,7 +35,7 @@ const authoritymanage = {
       return new Promise((resolve, reject) => {
         getMenuTree()
           .then(res => {
-            commit('SET_MENU_TREE', res)
+            commit('SET_MENU_TREE', res.data)
             resolve(res)
           })
           .catch(err => {
