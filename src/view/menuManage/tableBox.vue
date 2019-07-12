@@ -14,7 +14,10 @@
       <span slot="icon" slot-scope="text">
         <a-icon :type="text"/>
       </span>
-        <span slot="action" slot-scope="text, record">
+      <span slot="hidden" slot-scope="text">
+        {{{0:'否', 1: '是'}[text]}}
+      </span>
+      <span slot="action" slot-scope="text, record">
         <a-popconfirm okText="确定" cancelText="取消" @confirm="removeMenu(text)">
             <span slot="title">确定删除{{text.name}}?</span>
             <a>删除</a>
@@ -27,7 +30,7 @@
 import { message } from 'ant-design-vue'
 const columns = [
   {
-    title: '图标',
+    title: 'icon',
     dataIndex: 'icon',
     key: 'icon',
     scopedSlots: { customRender: 'icon' }
@@ -50,7 +53,8 @@ const columns = [
   }, {
     title: 'hidden',
     key: 'hidden',
-    dataIndex: 'hidden'
+    dataIndex: 'hidden',
+    scopedSlots: { customRender: 'hidden' }
   }, {
     title: 'Action',
     key: 'action',

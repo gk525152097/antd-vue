@@ -33,7 +33,7 @@ export default {
     }
   },
   methods: {
-    handleSearch (values) {
+    handleSearch () {
       this.$store.dispatch('getRole')
     }
   }

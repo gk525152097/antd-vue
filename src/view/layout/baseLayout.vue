@@ -57,12 +57,13 @@ export default {
   #components-layout-demo-side {
     .logo {
       height: 32px;
-      background: rgba(255,255,255,.2);
+      background: rgba(255, 255, 255, .2);
       margin: 16px;
     }
     .header {
       background: #fff;
       padding: 0;
+      box-shadow: 0 1px 2px #aaa;
     }
     .content {
       padding: 0 12px;

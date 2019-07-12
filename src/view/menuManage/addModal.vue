@@ -157,6 +157,9 @@ export default {
       this.form.validateFields((err, values) => {
         if (!err) {
           values.hidden = parseInt(values.hidden)
+
+          values.redirect === '' ? delete values.redirect : null
+
           _this.$store.dispatch('addMenu', {
             ...values,
             parentId: this.data.id
