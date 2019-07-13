@@ -7,7 +7,7 @@
           v-model="page"
           :pageSize.sync="pageSize"
           :total="data.total"
-          @showSizeChange="onShowSizeChange"
+          @showSizeChange="handlePage"
           :showTotal="total => `共 ${total} 条`"
         />
       </template>
@@ -97,6 +97,7 @@ export default {
     this.getMenuList()
   },
   methods: {
+    // 获取树
     getMenuList (id) {
       this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('getMenuList', {
@@ -108,6 +109,7 @@ export default {
           this.$store.dispatch('handleTableLoading')
         })
     },
+    // 删除菜单
     removeMenu (data) {
       this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('removeMenu', data)
@@ -129,7 +131,8 @@ export default {
           this.$store.dispatch('handleTableLoading')
         })
     },
-    onShowSizeChange (current, pageSize) {
+    // 分页功能
+    handlePage (current, pageSize) {
       console.log(current, pageSize)
       this.$store.dispatch('handleTableLoading')
       this.$store.dispatch('getMenuList', {

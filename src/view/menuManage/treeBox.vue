@@ -5,7 +5,7 @@
         class="draggable-tree"
         draggable
         @drop="onDrop"
-        @select="select"
+        @select="handleMenuItem"
         :treeData="treeList"
       />
     </a-spin>
@@ -29,6 +29,11 @@ export default {
   mounted () {
     this.$store.dispatch('handleTreeLoading')
     this.$store.dispatch('getMenuTree')
+      .then()
+      .catch()
+      .finally(() => {
+        this.$store.dispatch('handleTreeLoading')
+      })
 
     // 默认请求根目录信息
     this.$store.dispatch('handleInfoLoading')
@@ -40,7 +45,8 @@ export default {
       })
   },
   methods: {
-    select (selectedKeys, e) {
+    // 获取菜单详情
+    handleMenuItem (selectedKeys, e) {
       // 获取当前节点信息
       console.log(e.node.dataRef.id)
       let id = e.node.dataRef.id
@@ -52,13 +58,20 @@ export default {
           .finally(() => {
             this.$store.dispatch('handleInfoLoading')
           })
+        this.$store.dispatch('handleTableLoading')
         this.$store.dispatch('getMenuList', {
           id: id,
           page: this.$store.getters.menumanage.page,
           pageSize: this.$store.getters.menumanage.pageSize
         })
+          .then()
+          .catch()
+          .finally(() => {
+            this.$store.dispatch('handleTableLoading')
+          })
       }
     },
+    // 拖动节点
     onDrop (info) {
       // 拖动节点信息
       console.log(info)
@@ -126,6 +139,7 @@ export default {
         this.handleChangeTree()
       }
     },
+    // 修改树结构
     handleChangeTree () {
       // 修改树结构
       console.log(this.dropKey)
