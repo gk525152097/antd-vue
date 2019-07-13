@@ -17,3 +17,12 @@ export function getMenuTree (params) {
     data: { ...params }
   })
 }
+
+// 修改权限
+export function handleAuthority (params) {
+  return request({
+    url: '/authority/handleAuthority',
+    method: 'POST',
+    data: { ...params }
+  })
+}

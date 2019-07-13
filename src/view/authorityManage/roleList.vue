@@ -6,7 +6,7 @@
         :dataSource="roleList"
       >
         <div slot="header" class="list-title">角色</div>
-        <a-list-item slot="renderItem" slot-scope="item, index" class="list-item" @click="handleRole(item)">
+        <a-list-item slot="renderItem" slot-scope="item, index" :class="active === index ? 'active' : null" class="list-item" @click="handleRole(index, item)">
           {{item.role}}
         </a-list-item>
       </a-list>
@@ -25,15 +25,19 @@ export default {
         console.log(err)
       })
   },
-  data: () => ({}),
+  data: () => ({
+    active: null
+  }),
   computed: {
     roleList () {
       return this.$store.getters.authoritymanage.roleList
     }
   },
   methods: {
-    handleRole (item) {
-      console.log(item)
+    handleRole (index, item) {
+      console.log(index, item)
+      this.active = index
+      this.$store.dispatch('handleRole', item)
     }
   }
 }
@@ -50,6 +54,10 @@ export default {
     transition: all 0.1s;
     &:hover {
       background: rgba(0, 0, 0, 0.1);
+    }
+    &.active {
+      background: #40a9ff;
+      color: #fff;
     }
   }
 }
