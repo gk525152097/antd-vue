@@ -4,7 +4,8 @@ const getters = {
   visitedviews: state => state.tagsView.visitedviews,
   rolemanage: state => state.rolemanage,
   menumanage: state => state.menumanage,
-  authoritymanage: state => state.authoritymanage
+  authoritymanage: state => state.authoritymanage,
+  usermanage: state => state.usermanage
 }
 
 export default getters

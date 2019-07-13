@@ -89,6 +89,7 @@ export default {
     },
     confirm () {
       console.log(this.selectRole, this.checkedKeys)
+      this.checkedKeys = this.checkedKeys.splice(this.checkedKeys.indexOf(1) + 1) // 把根目录去除 否则新增菜单时会被默认选择 则于实际数据不符合
       this.$store.dispatch('handleAuthority', {
         role: this.selectRole,
         authority: this.checkedKeys

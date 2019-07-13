@@ -1,8 +1,9 @@
 <template>
   <div class="table-box">
-    <a-table :columns="columns" :dataSource="list">
-      <a slot="name" slot-scope="text" href="#">{{text}}</a>
-      <span slot="action" slot-scope="text, record">
+    <a-spin :spinning="loading">
+      <a-table :columns="columns" :dataSource="list">
+        <a slot="name" slot-scope="text" href="#">{{text}}</a>
+        <span slot="action" slot-scope="text, record">
         <a href="#">Invite 一 {{record.name}}</a>
         <a-divider type="vertical" />
         <a href="#">Delete</a>
@@ -11,7 +12,8 @@
           More actions <a-icon type="down" />
         </a>
     </span>
-    </a-table>
+      </a-table>
+    </a-spin>
   </div>
 </template>
 
@@ -36,12 +38,27 @@ const columns = [
 ]
 export default {
   name: 'tableBox',
-  props: [
-    'list'
-  ],
-  data () {
-    return {
-      columns
+  mounted () {
+    this.handleUserList()
+  },
+  data: () => ({
+    columns,
+    list: [
+      {key: 1, name: 'test', role: 'admin'}
+    ]
+  }),
+  computed: {
+    loading () { return this.$store.getters.usermanage.userListLoading },
+    list () { return this.$store.getters.usermanage.list }
+  },
+  methods: {
+    // 获取用户列表
+    handleUserList () {
+      this.$store.dispatch('handleListLoading')
+      this.$store.dispatch('handleUserList')
+        .then(res => { console.log(res) })
+        .catch(err => { console.log(err) })
+        .finally(() => { this.$store.dispatch('handleListLoading') })
     }
   }
 }

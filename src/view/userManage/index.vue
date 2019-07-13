@@ -1,13 +1,13 @@
 <template>
   <div class="user-manage">
     <div class="search-box">
-      <SearchBox @handleSearch="handleSearch"/>
+      <SearchBox />
     </div>
     <div class="action-box">
       <ActionBox />
     </div>
    <div class="table-box">
-     <TableBox :list="list" />
+     <TableBox />
    </div>
   </div>
 </template>
@@ -24,32 +24,8 @@ export default {
     TableBox,
     ActionBox
   },
-  data () {
-    return {
-      list: [
-        {
-          key: '1',
-          name: 'admin1',
-          role: 'admin'
-        },
-        {
-          key: '1',
-          name: 'admin2',
-          role: 'admin'
-        },
-        {
-          key: '1',
-          name: 'admin3',
-          role: 'admin'
-        }
-      ]
-    }
-  },
-  methods: {
-    handleSearch (values) {
-      console.log('father:', values)
-    }
-  }
+  data: () => ({}),
+  methods: {}
 }
 </script>
 
