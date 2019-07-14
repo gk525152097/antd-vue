@@ -22,7 +22,7 @@ const usermanage = {
     handleListLoading ({ commit }) {
       commit('HANDLE_LIST_LOADING')
     },
-    handleList({ commit }, data) {
+    handleUserList ({ commit }, data) {
       return new Promise((resolve, reject) => {
         handleList(data)
           .then(res => {

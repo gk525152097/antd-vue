@@ -28,11 +28,9 @@
 <script>
 export default {
   name: 'searchBox',
-  data () {
-    return {
-      form: this.$form.createForm(this)
-    }
-  },
+  data: () => ({
+    form: this.$form.createForm(this)
+  }),
   methods: {
     handleSubmit (e) {
       const _this = this
@@ -40,7 +38,6 @@ export default {
       this.form.validateFields(function (err, values) {
         if (!err) {
           console.log('child:', values)
-          _this.$emit('handleSearch', values)
         }
       })
     },
