@@ -123,6 +123,11 @@ export default {
           })
           this.$store.dispatch('handleTreeLoading')
           this.$store.dispatch('getMenuTree')
+            .then()
+            .catch()
+            .finally(() => {
+              this.$store.dispatch('handleTreeLoading')
+            })
         })
         .catch(err => {
           console.log(err)

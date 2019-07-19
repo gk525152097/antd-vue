@@ -23,6 +23,8 @@ export default {
 // todo 权限模块 问题 功能的注册 和 后台返回权限的判断
 // todo 细分到功能的权限管理
 // todo mock的可配置性 或者 是两套 开发环境 一套是没有后台的使用mock的 一套是有后台的关闭mock的
+
+// todo 权限管理模块 切换角色时 需要重置 菜单树结构 加 loading
 }
 </script>
 

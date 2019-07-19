@@ -168,16 +168,21 @@ export default {
               console.log(results)
               message.success('新增成功!')
               this.form.resetFields()
+              this.$store.dispatch('handleTableLoading')
               this.$store.dispatch('getMenuList', {
                 id: this.data.id,
                 page: this.$store.getters.menumanage.page,
                 pageSize: this.$store.getters.menumanage.pageSize
               })
+                .then().catch()
+                .finally(() => {
+                  this.$store.dispatch('handleTableLoading')
+                })
               this.$store.dispatch('handleTreeLoading')
               this.$store.dispatch('getMenuTree')
                 .then().catch()
                 .finally(() => {
-                  this.$store.dispathc('handleTreeLoading')
+                  this.$store.dispatch('handleTreeLoading')
                 })
             })
             .catch(err => {

@@ -22,9 +22,10 @@ export const constantRoutes = [
     component: baseLayout,
     hidden: true,
     children: [
-      { path: '404', name: '404', component: () => import('@/view/404'), hidden: true }
+      {path: '404', name: '404', component: () => import('@/view/404'), hidden: true}
     ]
   }
+  // },
   // {
   //   path: '/menuManage',
   //   name: '菜单管理',
@@ -69,10 +70,12 @@ export const constantRoutes = [
   //   name: '用户管理',
   //   icon: 'dashboard',
   //   component: baseLayout,
+  //   redirect: '/userManage/userManage',
   //   children: [{
   //     path: '/userManage/userManage',
   //     name: 'userManage',
-  //     component: () => import('@/view/userManage/index')
+  //     component: () => import('@/view/userManage/index'),
+  //     hidden: true
   //   }]
   // }
 ]

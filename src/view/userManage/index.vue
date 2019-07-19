@@ -16,13 +16,15 @@
 import SearchBox from './searchBox'
 import ActionBox from './actionBox'
 import TableBox from './tableBox'
-
 export default {
   name: 'index',
   components: {
     SearchBox,
     TableBox,
     ActionBox
+  },
+  mounted () {
+    this.$store.dispatch('usermanage/handleRoleList') // 获取角色列表
   },
   data: () => ({}),
   methods: {}

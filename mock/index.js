@@ -17,6 +17,7 @@ Mock.XHR.prototype.send = function () {
 // User
 Mock.mock('/user/login', 'post', userAPI.login)
 Mock.mock('/user/getMenu', 'post', userAPI.getMenu)
+Mock.mock('/authority/role', 'post', userAPI.getMenu)
 
 // Table
 
