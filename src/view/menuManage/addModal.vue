@@ -158,7 +158,9 @@ export default {
         if (!err) {
           values.hidden = parseInt(values.hidden)
 
-          values.redirect === '' ? delete values.redirect : null
+          if (values.redirect === '') {
+            delete values.redirect
+          }
 
           _this.$store.dispatch('addMenu', {
             ...values,

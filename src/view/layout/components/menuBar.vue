@@ -7,7 +7,7 @@
     mode="inline"
   >
     <template v-for="item in routes">
-      <a-menu-item v-if="!item.children || (item.children.length === 1 && item.children[0].hidden) && !item.hidden" :key="item.path">
+      <a-menu-item v-if="!item.hidden && (!item.children || (item.children.length === 1 && item.children[0].hidden))" :key="item.path">
         <router-link :to="item.path">
           <a-icon :type="item.icon" v-if="item.icon"/>
           <span>{{item.name}}</span>

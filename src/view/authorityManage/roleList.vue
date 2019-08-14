@@ -17,7 +17,7 @@
 export default {
   name: 'roleList',
   mounted () {
-    this.$store.dispatch('getRoleList')
+    this.$store.dispatch('authoritymanage/getRoleList')
       .then(res => {
         console.log(res)
       })
@@ -37,7 +37,7 @@ export default {
     handleRole (index, item) {
       console.log(index, item)
       this.active = index
-      this.$store.dispatch('handleRole', item)
+      this.$store.dispatch('authoritymanage/handleRole', item)
     }
   }
 }
@@ -46,6 +46,7 @@ export default {
 <style lang="scss" scoped>
 .role-list {
   background: #fff;
+  margin-bottom: 12px;
   .list-title{
     color: rgba(0, 0, 0, 0.45);
   }

@@ -1,11 +1,11 @@
 <template>
     <div class="authorityManage">
-      <a-row :gutter="12" class="row-style">
+      <a-row :gutter="12">
         <a-col :xs="24" :sm="24" :md="6" :lg="5" :xl="4">
           <RoleList />
         </a-col>
         <a-col :xs="24" :sm="24" :md="18" :lg="19" :xl="20">
-          <AuthorityTree />
+          <Authority />
         </a-col>
       </a-row>
     </div>
@@ -13,12 +13,12 @@
 
 <script>
 import RoleList from './roleList'
-import AuthorityTree from './authorityTree'
+import Authority from './authority'
 export default {
   name: 'index',
   components: {
     RoleList,
-    AuthorityTree
+    Authority
   },
   data: () => ({}),
   methods: {}
@@ -27,10 +27,6 @@ export default {
 
 <style lang="scss" scoped>
 .authorityManage {
-  .row-style {
-    display: flex;
-    align-items: stretch;
-  }
   .authority-item {
     padding: 12px;
     background: #fff;

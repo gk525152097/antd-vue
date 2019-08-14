@@ -83,8 +83,8 @@ export default {
           console.log(res)
           _this.$store.dispatch('usermanage/handleListLoading')
           _this.$store.dispatch('usermanage/handleUserList', {
-            page: this.$store.getters.usermanage.page,
-            pageSize: this.$store.getters.usermanage.pageSize
+            page: this.page,
+            pageSize: this.pageSize
           })
             .then().catch()
             .finally(() => {

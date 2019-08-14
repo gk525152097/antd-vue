@@ -1,4 +1,7 @@
-import { login } from '@/api/user'
+import {
+  login,
+  handleFunctionAuthority
+} from '@/api/user'
 
 const user = {
   state: {
@@ -27,6 +30,17 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+      })
+    },
+    GetFunctionAuthority (_, data) {
+      return new Promise((resolve, reject) => {
+        handleFunctionAuthority (data)
+          .then(res => {
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
       })
     }
   }

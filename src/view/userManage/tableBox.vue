@@ -3,20 +3,11 @@
     <a-spin :spinning="loading">
       <a-table
         :columns="columns"
-        :dataSource="data"
+        :dataSource="data.list"
         :rowSelection="rowSelection"
         rowKey="id"
+        :pagination="pagination"
       >
-        <!--<template slot="pagination">-->
-          <!--<a-pagination-->
-            <!--showSizeChanger-->
-            <!--v-model="page"-->
-            <!--:pageSize.sync="pageSize"-->
-            <!--:total="data.total"-->
-            <!--@showSizeChange="handlePage"-->
-            <!--:showTotal="total => `共 ${total} 条`"-->
-          <!--/>-->
-        <!--</template>-->
         <a slot="name" slot-scope="text">{{text}}</a>
         <span slot="action" slot-scope="text, record">
           <a @click="handleEditModal(record)">编辑</a>
@@ -106,7 +97,22 @@ export default {
         }
       },
       visible: false,
-      userItem: {}
+      userItem: {},
+      pagination: {
+        pageNo: 1,
+        pageSize: 20, // 默认每页显示数量
+        size: 'small',
+        showSizeChanger: true, // 显示可改变每页数量
+        pageSizeOptions: ['10', '20', '50', '100'], // 每页数量选项
+        showTotal: total => `总共 ${total} 条`, // 显示总数
+        onShowSizeChange: (current, pageSize) => {
+          console.log(current, pageSize)
+        }, // 改变每页数量时更新显示
+        onChange: (page, pageSize) => {
+          console.log(page, pageSize)
+        }, // 点击页码事件
+        total: 0 // 总条数
+      }
     }
   },
   computed: {
@@ -166,7 +172,6 @@ export default {
         .then(res => {
           console.log(res)
           message.success('删除成功')
-          this.$store.dispatch('usermanage/handleListLoading')
           this.$store.dispatch('usermanage/handleUserList', {
             page: this.page,
             pageSize: this.pageSize
@@ -174,6 +179,8 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+        .finally(() => {
           this.$store.dispatch('usermanage/handleListLoading')
         })
     },
@@ -194,6 +201,11 @@ export default {
         .finally(() => {
           this.$store.dispatch('usermanage/handleListLoading')
         })
+    }
+  },
+  watch: {
+    data () {
+      this.pagination.total = this.data.total
     }
   }
 }

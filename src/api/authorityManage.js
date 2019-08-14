@@ -18,6 +18,15 @@ export function getMenuTree (params) {
   })
 }
 
+// 获取 功能点
+export function handleFunctionPoint (params) {
+  return request({
+    url: '/authority/functionPoint',
+    method: 'POST',
+    data: { ...params }
+  })
+}
+
 // 修改权限
 export function handleAuthority (params) {
   return request({

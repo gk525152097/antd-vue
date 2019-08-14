@@ -1,12 +1,13 @@
 <template>
   <div class="header-info-box">
     <transition-group name="fade-transform" mode="out-in" tag="ul">
-      <li class="item" v-for="(item, index) in infoList" :key="index" @click="removeItem(index)">
+      <li class="item" v-for="(item, index) in infoList" :key="index + 1" @click="removeItem(index)">
         <header-info-item
           :avatar="item.avatar"
           :title="item.title"
           :text="item.text"
           :time="item.time"
+          :key="item.id"
         >
           <template slot="status" v-if="item.status">
             <div class="button-icon" :style="`color:${item.status.color};border-color:${item.status.color}`">{{item.status.text}}</div>

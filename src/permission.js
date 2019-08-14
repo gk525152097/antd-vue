@@ -1,3 +1,8 @@
+/**
+ * vue-router守卫
+ * 主要在路由跳转的时候进行处理
+ */
+
 import router from './router'
 import store from './store'
 import NProgress from 'nprogress' // progress bar
@@ -35,10 +40,24 @@ router.beforeEach((to, from, next) => {
           store.dispatch('addVisitedViews', to)
         }
       } else {
+        store.dispatch('GetFunctionAuthority', { role: JSON.parse(localStorage.getItem('user')).role })
+          .then(res => {
+            console.log(res.data.functionAuthority.split(',').map(item => Number(item)))
+            const arr = res.data.functionAuthority.split(',').map(item => Number(item))
+            localStorage.setItem('authority', `[${arr}]`)
+          })
+          .catch(err => {
+            console.log(err)
+            next(`/user/login?redirect=${to.path}`)
+          })
         store.dispatch('GetMenu', {role: JSON.parse(localStorage.getItem('user')).role})
           .then(GetMenu => {
             router.addRoutes(GetMenu)
             next({ ...to, replace: true })
+          })
+          .catch(err => {
+            console.log(err)
+            next(`/user/login?redirect=${to.path}`)
           })
       }
       NProgress.done()

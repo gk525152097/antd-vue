@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a-button @click="showModal">编辑菜单</a-button>
+    <a-button @click="showModal" :disabled="data.id === 1">编辑菜单</a-button>
     <!-- 新增模态框 -->
     <a-modal
       title="编辑菜单"

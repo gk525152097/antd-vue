@@ -5,7 +5,8 @@ const getters = {
   rolemanage: state => state.rolemanage,
   menumanage: state => state.menumanage,
   authoritymanage: state => state.authoritymanage,
-  usermanage: state => state.usermanage
+  usermanage: state => state.usermanage,
+  functionpointmanage: state => state.functionpointmanage
 }
 
 export default getters

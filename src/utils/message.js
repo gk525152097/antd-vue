@@ -1,3 +1,9 @@
+/**
+ * 全局提示封装
+ * 初步使用
+ * 未成型
+ */
+
 import { message } from 'ant-design-vue'
 
 const Message = (obj) => {

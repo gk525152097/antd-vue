@@ -34,12 +34,6 @@ export default {
     justify-content: space-between;
     font-size: 14px;
     line-height: 24px;
-    /*.title {*/
-      /*display: inline-block;*/
-    /*}*/
-    /*.action {*/
-      /*float: right;*/
-    /*}*/
   }
   .box-body {
     flex: 1;

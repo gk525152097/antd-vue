@@ -1,10 +1,10 @@
-import baseLayout from '@/view/layout/baseLayout'
-
-/*
+/**
  * 动态创建路由
  * 接收一个数组
  * 主要作用 更换 baseLayout 和 修改 component
  */
+
+import baseLayout from '@/view/layout/baseLayout'
 
 const buildRoutes = (menuList) => {
   menuList = menuList.map(menu => {

@@ -105,7 +105,9 @@ export default {
         page: this.page,
         pageSize: this.pageSize
       })
-        .then(() => {
+        .then()
+        .catch()
+        .finally(() => {
           this.$store.dispatch('handleTableLoading')
         })
     },

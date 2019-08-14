@@ -26,3 +26,12 @@ export function getMenu (params) {
     data: { ...params }
   })
 }
+
+// 获取 功能点权限
+export function handleFunctionAuthority (params) {
+  return request({
+    url: '/user/handleFunctionAuthority',
+    method: 'POST',
+    data: { ...params }
+  })
+}

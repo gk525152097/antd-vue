@@ -1,3 +1,9 @@
+/**
+ * list transform to tree
+ * @param list
+ * @returns {*}
+ */
+
 function transform (list) {
   if (!list) return
   list.filter(item => {

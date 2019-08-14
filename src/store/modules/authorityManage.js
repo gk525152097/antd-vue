@@ -1,14 +1,18 @@
 import {
   getRoleList,
   getMenuTree,
-  handleAuthority
+  handleAuthority,
+  handleFunctionPoint
 } from '@/api/authorityManage'
 
 const authoritymanage = {
+  namespaced: true,
+
   state: {
     roleList: [],
     menuTree: [],
-    role: {}
+    role: {},
+    functionPoint: []
   },
 
   mutations: {
@@ -20,6 +24,9 @@ const authoritymanage = {
     },
     HANDLE_ROLE: (state, data) => {
       state.role = data
+    },
+    HANDLE_FUNCTION_POINT: (state, data) => {
+      state.functionPoint = data
     }
   },
 
@@ -43,6 +50,19 @@ const authoritymanage = {
         getMenuTree()
           .then(res => {
             commit('SET_MENU_TREE', res.data)
+            resolve(res)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // 获取 功能点
+    handleFunctionPoint ({ commit }) {
+      return new Promise((resolve, reject) => {
+        handleFunctionPoint()
+          .then(res => {
+            commit('HANDLE_FUNCTION_POINT', res.data)
             resolve(res)
           })
           .catch(err => {

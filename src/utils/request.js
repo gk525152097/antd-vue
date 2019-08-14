@@ -1,3 +1,10 @@
+/**
+ * 请求封装
+ * 实例配置: 设置baseUrl 和 timeout
+ * 请求拦截: 为深入配置 可进行token配置
+ * 响应拦截: 与后台进行配置 主要拦截 response status异常 以及 返回结果错误
+ */
+
 import axios from 'axios'
 import router from '../router'
 import Message from '@/utils/message'

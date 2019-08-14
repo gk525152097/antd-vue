@@ -17,15 +17,6 @@ import { message } from 'ant-design-vue'
 import transform from '@/utils/transformTree'
 export default {
   name: 'treeBox',
-  data () {
-    return {
-      treeList: [],
-      dropKey: 0, // 上级节点
-      dropRank: 0, // 排序
-      dropItem: {}, // 当前项
-      dropList: [] // 插入上级节点子节点list
-    }
-  },
   mounted () {
     this.$store.dispatch('handleTreeLoading')
     this.$store.dispatch('getMenuTree')
@@ -43,6 +34,23 @@ export default {
       .finally(() => {
         this.$store.dispatch('handleInfoLoading')
       })
+  },
+  data () {
+    return {
+      treeList: [],
+      dropKey: 1, // 上级节点
+      dropRank: 0, // 排序
+      dropItem: {}, // 当前项
+      dropList: [] // 插入上级节点子节点list
+    }
+  },
+  computed: {
+    _treeData () {
+      return transform(this.$store.getters.menumanage.tree)
+    },
+    loading () {
+      return this.$store.getters.menumanage.treeLoading
+    }
   },
   methods: {
     // 获取菜单详情
@@ -78,8 +86,11 @@ export default {
       if (info.node.dataRef.key === 1) {
         message.error('根目录不允许存在同级菜单！')
       } else {
+        // loading
         this.$store.dispatch('handleTreeLoading')
+        // 获取当前拖动的点
         this.dropItem = info.dragNode.dataRef
+        //
         const dropKey = info.node.eventKey
         const dragKey = info.dragNode.eventKey
         const dropPos = info.node.pos.split('-')
@@ -136,6 +147,10 @@ export default {
             ar.splice(i + 1, 0, dragObj)
           }
         }
+        //
+        // console.log(this.dropKey)
+        // console.log(this.dropItem)
+        // console.log(this.dropList)
         this.handleChangeTree()
       }
     },
@@ -146,6 +161,7 @@ export default {
       console.log(this.dropItem)
       console.log(this.dropList)
 
+      // this.dropList.shift() ？
       if (!this.dropList.length && this.dropKey === this.dropItem.parentId) {
         this.$store.dispatch('handleTreeLoading')
       } else {
@@ -167,23 +183,15 @@ export default {
           })
       }
 
-      this.dropKey = 0
+      this.dropKey = 1
       this.dropItem = {}
       this.dropList = []
-    }
-  },
-  computed: {
-    _treeData () {
-      return transform(this.$store.getters.menumanage.tree)
-    },
-    loading () {
-      return this.$store.getters.menumanage.treeLoading
     }
   },
   watch: {
     _treeData () {
       this.treeList = this._treeData
-      this.$store.dispatch('handleTreeLoading')
+      // this.$store.dispatch('handleTreeLoading')
     }
   }
 }

@@ -8,6 +8,7 @@ import rolemanage from './modules/roleMange.js'
 import menumanage from './modules/menuManage.js'
 import authoritymanage from './modules/authorityManage.js'
 import usermanage from './modules/userManage.js'
+import functionpointmanage from './modules/functionPointManage.js'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
@@ -18,7 +19,8 @@ const store = new Vuex.Store({
     rolemanage,
     menumanage,
     authoritymanage,
-    usermanage
+    usermanage,
+    functionpointmanage
   },
   getters
 })
