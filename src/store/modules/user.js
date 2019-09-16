@@ -34,7 +34,7 @@ const user = {
     },
     GetFunctionAuthority (_, data) {
       return new Promise((resolve, reject) => {
-        handleFunctionAuthority (data)
+        handleFunctionAuthority(data)
           .then(res => {
             resolve(res)
           })

@@ -26,7 +26,6 @@ export default {
   .main{
     width: 100%;
     height: 100%;
-    background: linear-gradient(-45deg,rgba(97,221,248,.95) 10%,rgba(167,63,246,.95));
     .body{
       width: 40%;
       margin: 0 auto;
